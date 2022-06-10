@@ -1,16 +1,100 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Webpack Starter Kit</title>
-</head>
-<body>
-  <img src="./images/turing-logo.png" alt="turing logo">
-  
-  <!-- Do not include the scripts.js or class files here - it is done by the webpack server -->
-  <script src="bundle.js"></script>
-
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>JetSetter</title>
+  </head>
+  <body>
+    <!-- <img src="./images/turing-logo.png" alt="turing logo" /> -->
+    <aside class="sidebar">
+      <header class="sidebar-header">
+        <h1 class="sidebar-title">JetSetter✈️</h1>
+      </header>
+      <div class="form-wrapper">
+        <section class="sidebar-form">
+          <header class="form-header">
+            <h2 class="form-title">Let's Jet!</h2>
+          </header>
+          <form class="trip-form">
+            <label for="trip-date-input">Date:</label>
+            <input
+              class="user-input date-input"
+              type="date"
+              id="trip-date-input"
+              name="date"
+              required
+            />
+            <label for="trip-duration-input" class="trip-duration-input-label"
+              >Duration:</label
+            >
+            <input
+              class="user-input duration-input"
+              id="trip-duration-input"
+              type="number"
+              name="duration"
+              value=""
+              required
+            />
+            <label for="num-trav-input" class="num-trav-input-label"
+              >Number of Travelers:</label
+            >
+            <input
+              class="user-input num-trav-input"
+              id="num-trav-input"
+              type="number"
+              name="number-travelers"
+              value=""
+              required
+            />
+            <label for="destination-selection" class="destination-label"
+              >Destination:</label
+            >
+            <input
+              class="user-input destination-input"
+              id="destination-selection"
+              type="datalist"
+              name="destination"
+              value=""
+              required
+            />
+          </form>
+          <div class="cost-wrapper">
+            <p class="est-cost">Estimated Cost*: $245</p>
+            <p class="cost-disclaimer">*Includes 10% travel agent fee</p>
+          </div>
+          <button class="submit-trip" id="submitTrip" disabled="true">
+            Submit
+          </button>
+        </section>
+      </div>
+    </aside>
+    <main class="dashboard">
+      <nav class="nav-bar">
+        <h1 class="welcome" id="welcome">Welcome, Name!</h1>
+      </nav>
+      <div class="content-wrapper">
+        <header class="trip-header">
+          <h1 class="your-trips">Your Trips</h1>
+        </header>
+        <section class="grid-container">
+          <article class="present-display">
+            <h2 class="display-title">Present⭐</h2>
+          </article>
+          <article class="amt-display">
+            <h2 class="spent-title">Total Amount Spent This Year💸</h2>
+          </article>
+          <article class="upcoming-display">
+            <h2 class="upcoming-title">Upcoming✈️</h2>
+          </article>
+          <article class="past-display">
+            <h2 class="past-title">Past🗺️</h2>
+          </article>
+        </section>
+      </div>
+    </main>
+    <!-- Do not include the scripts.js or class files here - it is done by the webpack server -->
+    <script src="bundle.js"></script>
+  </body>
 </html>
