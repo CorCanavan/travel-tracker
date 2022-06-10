@@ -13,11 +13,23 @@ let traveler;
 
   });
 
-  it('should be a function', function () {
+  it('should be a function', () => {
     expect(Traveler).to.be.a('function');
   });
 
   it('should be an instance of Traveler', () => {
     expect(traveler).to.be.an.instanceOf(Traveler);
+  });
+
+  it('should have an id property', () => {
+    expect(traveler.id).to.equal(2);
+  });
+
+  it('should have a name property', () => {
+    expect(traveler.name).to.equal("Rachael Vaughten");
+  });
+
+  it('should have a travelerType property', () => {
+    expect(traveler.travelerType).to.equal("thrill-seeker");
   });
 });
