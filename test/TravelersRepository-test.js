@@ -13,7 +13,7 @@ let travelersRepository;
 
   });
 
-  it('should be a function', function () {
+  it('should be a function', () => {
     expect(TravelersRepository).to.be.a('function');
   });
 
