@@ -6,10 +6,17 @@ import travelersData from '../data/travelers-sample-data.js';
 describe('Travelers Repository', () => {
 
 let travelersRepository;
+let sampleTraveler;
 
   beforeEach(() => {
 
     travelersRepository = new TravelersRepository(travelersData);
+
+    sampleTraveler = {
+        "id": 2,
+        "name": "Rachael Vaughten",
+        "travelerType": "thrill-seeker"
+      }
 
   });
 
@@ -31,5 +38,6 @@ let travelersRepository;
 
   it('should return a traveler\'s specific data when given an id', () => {
     expect(travelersRepository.getTravelerById(2)).to.deep.equal(travelersRepository.travelers[1]);
+    expect(travelersRepository.getTravelerById(2)).to.deep.equal(sampleTraveler);
   });
 });

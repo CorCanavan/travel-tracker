@@ -6,10 +6,17 @@ import travelersData from '../data/travelers-sample-data.js';
 describe('Traveler', () => {
 
 let travelerInfo;
+let sampleTraveler;
 
   beforeEach(() => {
 
     travelerInfo = new Traveler(travelersData[1]);
+
+    sampleTraveler = {
+        "id": 2,
+        "name": "Rachael Vaughten",
+        "travelerType": "thrill-seeker"
+      }
 
   });
 
@@ -19,6 +26,11 @@ let travelerInfo;
 
   it('should be an instance of Traveler', () => {
     expect(travelerInfo).to.be.an.instanceOf(Traveler);
+  });
+
+  it('should be an object', () => {
+    expect(travelerInfo).to.be.an('object');
+    expect(travelerInfo).to.deep.equal(sampleTraveler);
   });
 
   it('should have an id property', () => {
