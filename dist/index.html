@@ -12,69 +12,71 @@
       <header class="sidebar-header">
         <h1 class="sidebar-title">JetSetter✈️</h1>
       </header>
-      <section class="sidebar-form">
-        <header class="form-header">
-          <h2 class="form-title">Let's Jet!</h2>
-        </header>
-        <form class="trip-form">
-          <label for="trip-date-input">Date:</label>
-          <input
-            class="user-input date-input"
-            type="date"
-            id="tripDateInput"
-            name="date"
-            required
-          />
-          <label for="trip-duration-input" class="trip-duration-input-label"
-            >Duration:</label
-          >
-          <input
-            class="user-input duration-input"
-            id="tripDurationInput"
-            type="number"
-            name="duration"
-            value=""
-            required
-          />
-          <label for="num-trav-input" class="num-trav-input-label"
-            >Number of Travelers:</label
-          >
-          <input
-            class="user-input num-trav-input"
-            id="numTravInput"
-            type="number"
-            name="number-travelers"
-            value=""
-            required
-          />
-          <label for="destination-selection" class="destination-label"
-            >Destination:</label
-          >
-          <input
-            class="user-input destination-input"
-            id="destinationSelection"
-            type="datalist"
-            name="destination"
-            value=""
-            required
-          />
-        </form>
-        <div class="cost-wrapper">
-          <p class="est-cost">Estimated Cost*: $245</p>
-          <p class="cost-disclaimer">*Includes 10% travel agent fee</p>
-        </div>
-        <button class="submit-trip" id="submitTrip" disabled="true">
-          Submit
-        </button>
-      </section>
+      <div class="form-wrapper">
+        <section class="sidebar-form">
+          <header class="form-header">
+            <h2 class="form-title">Let's Jet!</h2>
+          </header>
+          <form class="trip-form">
+            <label for="trip-date-input">Date:</label>
+            <input
+              class="user-input date-input"
+              type="date"
+              id="trip-date-input"
+              name="date"
+              required
+            />
+            <label for="trip-duration-input" class="trip-duration-input-label"
+              >Duration:</label
+            >
+            <input
+              class="user-input duration-input"
+              id="trip-duration-input"
+              type="number"
+              name="duration"
+              value=""
+              required
+            />
+            <label for="num-trav-input" class="num-trav-input-label"
+              >Number of Travelers:</label
+            >
+            <input
+              class="user-input num-trav-input"
+              id="num-trav-input"
+              type="number"
+              name="number-travelers"
+              value=""
+              required
+            />
+            <label for="destination-selection" class="destination-label"
+              >Destination:</label
+            >
+            <input
+              class="user-input destination-input"
+              id="destination-selection"
+              type="datalist"
+              name="destination"
+              value=""
+              required
+            />
+          </form>
+          <div class="cost-wrapper">
+            <p class="est-cost">Estimated Cost*: $245</p>
+            <p class="cost-disclaimer">*Includes 10% travel agent fee</p>
+          </div>
+          <button class="submit-trip" id="submitTrip" disabled="true">
+            Submit
+          </button>
+        </section>
+      </div>
     </aside>
     <main class="dashboard">
       <nav class="nav-bar">
         <h1 class="welcome" id="welcome">Welcome, Name!</h1>
       </nav>
       <div class="content-wrapper">
-        <header>
-          <h1 class="trip-heading">Your Trips</h1>
+        <header class="trip-header">
+          <h1 class="your-trips">Your Trips</h1>
         </header>
         <section class="grid-container">
           <article class="present-display">

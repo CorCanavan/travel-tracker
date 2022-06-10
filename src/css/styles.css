@@ -21,6 +21,8 @@ body {
 
 article {
   background-color: #f2f79e;
+  padding: 5px;
+  border-radius: 10px;
 }
 
 .sidebar {
@@ -29,15 +31,29 @@ article {
   background-color: #92b9bd;
   display: flex;
   flex-direction: column;
+  align-items: center;
 }
 
+.form-wrapper {
+  border: 2px solid green;
+  height: 80%;
+  display: flex;
+  align-items: flex-end;
+}
 .sidebar-form {
-  align-content: center;
+  /* align-content: center; */
+  /* dislay: flex;
+  flex-direction: column
+  align-items: center; */
+  border: 2px solid pink;
+  margin: 10px;
+  height: 300px;
 }
 
 .dashboard {
   background-color: #a8d4ad;
   width: 100%;
+  border: 2px solid orange;
 }
 
 .content-wrapper {
@@ -45,11 +61,21 @@ article {
   display: flex;
   flex-direction: column;
   /* align-items: center; */
+  border: 2px solid purple;
+  height: 100%;
 }
+
+.trip-header {
+  display: flex;
+  justify-content: center;
+  width: 80%;
+  margin: 5px;
+}
+
 .grid-container {
   display: grid;
   position: relative;
-  /* top: 100px; */
+  /* top: 50px; */
   /* max-height: 900px; */
   grid-template-columns: 270px 270px 270px;
   grid-template-rows: 180px 230px 230px;
