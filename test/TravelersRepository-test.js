@@ -29,7 +29,7 @@ let travelersRepository;
     expect(travelersRepository.travelers.length).to.equal(5);
   });
 
-  // it('should return a user\'s data when given an id', () => {
-  //   expect(userRepository.getUserById(1)).to.deep.equal(userRepository.users[0]);
-  // });
+  it('should return a traveler\'s specific data when given an id', () => {
+    expect(travelersRepository.getTravelerById(2)).to.deep.equal(travelersRepository.travelers[1]);
   });
+});
