@@ -32,4 +32,8 @@ let travelerInfo;
   it('should have a travelerType property', () => {
     expect(travelerInfo.travelerType).to.equal("thrill-seeker");
   });
+
+  it('should return traveler\'s first name', () => {
+    expect(travelerInfo.getTravelerFirstName()).to.equal("Rachael");
+  });
 });

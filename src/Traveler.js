@@ -4,6 +4,11 @@ class Traveler {
     this.name = travelerInfo.name;
     this.travelerType = travelerInfo.travelerType;
   }
+
+  getTravelerFirstName() {
+    const firstName = this.name.split(' ');
+      return firstName[0];
+  }
 }
 
 
