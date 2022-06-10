@@ -23,4 +23,12 @@ let sampleDestination;
   it('should be a function', () => {
     expect(DestinationsRepository).to.be.a('function');
   });
+
+  it('should be an instance of Destinations Repository', () => {
+    expect(destinationsRepository).to.be.an.instanceOf(DestinationsRepository);
+  });
+
+  it('should have a property to hold all destination data', () => {
+    expect(destinationsRepository.destinations).to.deep.equal(destinationData);
+  });
 });

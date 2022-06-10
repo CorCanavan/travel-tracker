@@ -1,6 +1,6 @@
 class DestinationsRepository {
   constructor(destinationData) {
-
+    this.destinations = destinationData;
   }
 }
 
