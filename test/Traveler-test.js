@@ -5,11 +5,11 @@ import travelersData from '../data/travelers-sample-data.js';
 
 describe('Traveler', () => {
 
-let traveler;
+let travelerInfo;
 
   beforeEach(() => {
 
-    traveler = new Traveler(travelersData[1]);
+    travelerInfo = new Traveler(travelersData[1]);
 
   });
 
@@ -18,18 +18,18 @@ let traveler;
   });
 
   it('should be an instance of Traveler', () => {
-    expect(traveler).to.be.an.instanceOf(Traveler);
+    expect(travelerInfo).to.be.an.instanceOf(Traveler);
   });
 
   it('should have an id property', () => {
-    expect(traveler.id).to.equal(2);
+    expect(travelerInfo.id).to.equal(2);
   });
 
   it('should have a name property', () => {
-    expect(traveler.name).to.equal("Rachael Vaughten");
+    expect(travelerInfo.name).to.equal("Rachael Vaughten");
   });
 
   it('should have a travelerType property', () => {
-    expect(traveler.travelerType).to.equal("thrill-seeker");
+    expect(travelerInfo.travelerType).to.equal("thrill-seeker");
   });
 });
