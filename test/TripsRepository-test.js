@@ -38,6 +38,7 @@ let sampleTrip;
   });
 
   it ('should return all trips for a particular traveler/user when given their userID', () => {
-    expect(tripsRepository.getAllTripsByUserID().to.deep.equal())
+    const tripsDataUser43 = tripsData.filter(el => el.userID === 43);
+    expect(tripsRepository.getAllTripsByUserID(43).to.deep.equal(tripsDataUser43));
   })
 });
