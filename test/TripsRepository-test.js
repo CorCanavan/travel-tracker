@@ -43,7 +43,21 @@ let sampleTrip;
     expect(tripsRepository.getAllTripsByUserID(43).length).to.equal(5);
   });
 
-  it('should return all PAST trips for a specific traveler when given id and date', () => {
+  it('should return all Past trips for a specific traveler when given id and date', () => {
     expect(tripsRepository.getAllPastTripsForTraveler(43, "2022/06/11").length).to.equal(4);
-  })
+  });
+
+  it('should return all Present trips for a specific traveler when given id and date', () => {
+    expect(tripsRepository.getAllPresentTripsForTraveler(3, "2022/06/11")).to.deep.equal([{
+            "id": 3,
+            "userID": 3,
+            "destinationID": 22,
+            "travelers": 4,
+            "date": "2022/06/11",
+            "duration": 17,
+            "status": "approved",
+            "suggestedActivities": []
+          }]);
+    expect(tripsRepository.getAllPresentTripsForTraveler(3, "2022/06/11").length).to.equal(1);
+  });
 });
