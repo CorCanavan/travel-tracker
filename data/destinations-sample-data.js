@@ -1,4 +1,4 @@
-const destinationData = [
+const destinationsData = [
   {
     "id": 1,
     "destination": "Lima, Peru",
@@ -21,7 +21,7 @@ const destinationData = [
     "estimatedLodgingCostPerDay": 130,
     "estimatedFlightCostPerPerson": 950,
     "image": "https://images.unsplash.com/photo-1506973035872-a4ec16b8e8d9?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80",
-  "alt": "opera house and city buildings on the water with boats"
+    "alt": "opera house and city buildings on the water with boats"
   },
   {
     "id": 4,
@@ -41,4 +41,4 @@ const destinationData = [
   }
 ];
 
-export default destinationData;
+export default destinationsData;
