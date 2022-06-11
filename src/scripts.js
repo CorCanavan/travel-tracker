@@ -8,6 +8,7 @@ import TravelersRepository from './TravelersRepository.js';
 // import Traveler from './Traveler.js';
 import DestinationsRepository from './DestinationsRepository.js';
 import TripsRepository from './TripsRepository.js';
+import dayjs from 'dayjs';
 
 // An example of how you tell webpack to use an image (also need to link to it in the index.html)
 // import './images/turing-logo.png';
@@ -35,6 +36,10 @@ function instantiateTravelersRepo(data) {
 
 function instantiateTripsRepo(data) {
   tripsRepository = new TripsRepository(data);
+  console.log("past", tripsRepository.getAllPastTripsForTraveler(38, "2022/06/11"))
+  console.log("present", tripsRepository.getAllPresentTripsForTraveler(38, "2022/06/11"))
+  console.log("future", tripsRepository.getAllFutureTripsForTraveler(38, "2022/06/11"))
+  console.log("pending", tripsRepository.getAllPendingTripsForTraveler(38, "2022/06/11"))
 }
 
 function instantiateDestinationsRepo(data) {
