@@ -28,4 +28,12 @@ let sampleTrip;
   it('should be a function', () => {
     expect(TripsRepository).to.be.a('function');
   });
+
+  it('should be an instance of Trips Repository', () => {
+    expect(tripsRepository).to.be.an.instanceOf(TripsRepository);
+  });
+
+  it('should have a property to hold all trips data', () => {
+    expect(tripsRepository.trips).to.deep.equal(tripsData);
+  });
 });
