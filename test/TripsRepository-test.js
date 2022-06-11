@@ -36,4 +36,8 @@ let sampleTrip;
   it('should have a property to hold all trips data', () => {
     expect(tripsRepository.trips).to.deep.equal(tripsData);
   });
+
+  it ('should return all trips for a particular traveler/user when given their userID', () => {
+    expect(tripsRepository.getAllTripsByUserID().to.deep.equal())
+  })
 });
