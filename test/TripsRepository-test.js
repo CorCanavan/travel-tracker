@@ -37,9 +37,13 @@ let sampleTrip;
     expect(tripsRepository.trips).to.deep.equal(tripsData);
   });
 
-  it ('should return all trips for a specific traveler/user when given their userID', () => {
+  it('should return all trips for a specific traveler/user when given their userID', () => {
     const tripsDataUser43 = tripsData.filter(el => el.userID === 43);
     expect(tripsRepository.getAllTripsByUserID(43)).to.deep.equal(tripsDataUser43);
     expect(tripsRepository.getAllTripsByUserID(43).length).to.equal(5);
+  });
+
+  it('should return all PAST trips for a specific traveler when given id and date', () => {
+    expect(tripsRepository.getAllPastTripsForTraveler(43, "2022/06/11").length).to.equal(4);
   })
 });

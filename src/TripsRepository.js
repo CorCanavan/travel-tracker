@@ -12,7 +12,9 @@ class TripsRepository {
 
   getAllPastTripsForTraveler(travelerId, currentDate) {
     const allTripsForTraveler = this.getAllTripsByUserID(travelerId);
-    const pastTripsForTraveler = allTripsForTraveler.filter(trip => dayjs(trip.date).isBefore(dayjs(currentDate)));
+    const pastTripsForTraveler = allTripsForTraveler
+        .filter(trip => dayjs(trip.date).isBefore(dayjs(currentDate)))
+        .filter(trip => trip.status === 'approved');
     return pastTripsForTraveler;
   }
 
