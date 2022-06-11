@@ -48,7 +48,48 @@ const tripsData = [
     "duration": 18,
     "status": "approved",
     "suggestedActivities": []
+  },
+  {
+    "id": 27,
+    "userID": 43,
+    "destinationID": 7,
+    "travelers": 6,
+    "date": "2019/07/16",
+    "duration": 5,
+    "status": "approved",
+    "suggestedActivities": []
+  },
+  {
+    "id": 80,
+    "userID": 43,
+    "destinationID": 21,
+    "travelers": 1,
+    "date": "2019/09/28",
+    "duration": 4,
+    "status": "approved",
+    "suggestedActivities": []
+  },
+  {
+    "id": 155,
+    "userID": 43,
+    "destinationID": 49,
+    "travelers": 4,
+    "date": "2020/05/16",
+    "duration": 11,
+    "status": "approved",
+    "suggestedActivities": []
+  },
+  {
+    "id": 187,
+    "userID": 43,
+    "destinationID": 14,
+    "travelers": 3,
+    "date": "2020/11/12",
+    "duration": 18,
+    "status": "approved",
+    "suggestedActivities": []
   }
 ];
+
 
 export default tripsData;
