@@ -60,4 +60,32 @@ let sampleTrip;
           }]);
     expect(tripsRepository.getAllPresentTripsForTraveler(3, "2022/06/11").length).to.equal(1);
   });
+
+  it('should return all Future trips for a specific traveler when given id and date', () => {
+    expect(tripsRepository.getAllFutureTripsForTraveler(44, "2022/06/11")).to.deep.equal([{
+          "id": 1,
+          "userID": 44,
+          "destinationID": 49,
+          "travelers": 1,
+          "date": "2022/09/16",
+          "duration": 8,
+          "status": "approved",
+          "suggestedActivities": []
+      }]);
+    expect(tripsRepository.getAllFutureTripsForTraveler(44, "2022/06/11").length).to.equal(1);
+  });
+
+  it('should return all Pending trips for a specific traveler when given id and date', () => {
+    expect(tripsRepository.getAllPendingTripsForTraveler(43, "2022/06/11")).to.deep.equal([{
+          "id": 27,
+          "userID": 43,
+          "destinationID": 7,
+          "travelers": 6,
+          "date": "2019/07/16",
+          "duration": 5,
+          "status": "pending",
+          "suggestedActivities": []
+      }]);
+    expect(tripsRepository.getAllPendingTripsForTraveler(43, "2022/06/11").length).to.equal(1);
+  });
 });
