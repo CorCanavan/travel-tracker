@@ -6,7 +6,6 @@ import tripsData from '../data/trips-sample-data.js';
 describe('Trips Repository', () => {
 
 let tripsRepository;
-let sampleTrip;
 
   beforeEach(() => {
 
@@ -76,5 +75,19 @@ let sampleTrip;
           "suggestedActivities": []
       }]);
     expect(tripsRepository.getAllPendingTripsForTraveler(43, "2022/06/11").length).to.equal(1);
+  });
+
+  it('should return all trips from the past year for a specific traveler when given id and date', () => {
+    expect(tripsRepository.getTravelerTripsFromPastYear(43, "2022/06/11")).to.deep.equal([{
+        "id": 4,
+        "userID": 43,
+        "destinationID": 14,
+        "travelers": 2,
+        "date": "2022/02/25",
+        "duration": 10,
+        "status": "approved",
+        "suggestedActivities": []
+      }]);
+    expect(tripsRepository.getTravelerTripsFromPastYear(43, "2022/06/11").length).to.equal(1);
   });
 });
