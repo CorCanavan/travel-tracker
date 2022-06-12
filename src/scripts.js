@@ -5,7 +5,7 @@
 import './css/styles.css';
 import {allTravelersData, allTripsData, allDestinationsData, fetchData} from './apiCalls.js';
 import TravelersRepository from './TravelersRepository.js';
-// import Traveler from './Traveler.js';
+import Traveler from './Traveler.js';
 import DestinationsRepository from './DestinationsRepository.js';
 import TripsRepository from './TripsRepository.js';
 import dayjs from 'dayjs';
@@ -15,7 +15,8 @@ dayjs.extend(isBetween)
 // An example of how you tell webpack to use an image (also need to link to it in the index.html)
 // import './images/turing-logo.png';
 
-console.log('This is the JavaScript entry file - your code begins here.');
+//Query Selectors:
+
 
 // Global Variables:
 let travelersRepository;
