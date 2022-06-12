@@ -54,18 +54,12 @@ function instantiateDestinationsRepo(data) {
 }
 
 function getTotalCostFromPastYear() {
-  console.log("tripsRepo", tripsRepository)
-  const travelerTripsFromPastYear = tripsRepository.getTravelerTripsFromPastYear(44, "2022/06/11")
+  const travelerTripsFromPastYear = tripsRepository.getTravelerTripsFromPastYear(14, "2022/06/11");
   const totalCostOfTrips = travelerTripsFromPastYear.reduce((totalCost, trip) => {
     const tripDestination = destinationsRepository.getDestinationById(trip.destinationID);
-      totalCost += (tripDestination.estimatedLodgingCostPerDay * trip.duration) + (tripDestination.estimatedFlightCostPerPerson * trip.travelers)
-      console.log("totalCost1", totalCost)
-      const fee = Number((totalCost * .10).toFixed(2));
-      console.log("fee", fee)
-      totalCost += fee;
-      console.log("totalCost2", totalCost)
+    totalCost += (tripDestination.estimatedLodgingCostPerDay * trip.duration) + (tripDestination.estimatedFlightCostPerPerson * trip.travelers);
     return totalCost;
   }, 0)
-  console.log("totalCostOfTrips", totalCostOfTrips);
-  return totalCostOfTrips;
+  const fee = totalCostOfTrips * .10;
+  return (totalCostOfTrips + fee).toFixed(2);
 }
