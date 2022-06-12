@@ -15,8 +15,15 @@ body {
     rgba(252, 70, 107, 1) 100%
   ); */
   display: flex;
+  /* font-family: 'Kdam Thmor Pro', sans-serif; */
   height: 100%;
   /* border: 1px solid red; */
+}
+
+.sidebar-title,
+.form-title,
+.your-trips {
+  font-family: 'Kdam Thmor Pro', sans-serif;
 }
 
 article {
