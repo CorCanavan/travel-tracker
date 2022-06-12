@@ -1,4 +1,6 @@
 import dayjs from 'dayjs'
+import isBetween from 'dayjs/plugin/isBetween';
+dayjs.extend(isBetween)
 
 class TripsRepository {
   constructor(tripsData) {
@@ -13,8 +15,8 @@ class TripsRepository {
   getAllPastTripsForTraveler(travelerId, currentDate) {
     const allTripsForTraveler = this.getAllTripsByUserID(travelerId);
     const pastTripsForTraveler = allTripsForTraveler
-        .filter(trip => dayjs(trip.date).isBefore(dayjs(currentDate)))
-        .filter(trip => trip.status === 'approved');
+      .filter(trip => dayjs(trip.date).isBefore(dayjs(currentDate)))
+      .filter(trip => trip.status === 'approved');
     return pastTripsForTraveler;
   }
 
@@ -36,6 +38,13 @@ class TripsRepository {
     return pendingTripsForTraveler;
   }
 
+  getTravelerTripsFromPastYear(travelerId, currentDate) {
+    const allTripsForTraveler = this.getAllTripsByUserID(travelerId);
+    const tripsFromPastYear = allTripsForTraveler
+      .filter(trip => dayjs(trip.date).isBetween(currentDate, dayjs(currentDate).subtract(1, 'year')))
+      .filter(trip => trip.status === 'approved');
+    return tripsFromPastYear;
+  }
 
 }
 
