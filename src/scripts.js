@@ -38,14 +38,34 @@ function instantiateTravelersRepo(data) {
 
 function instantiateTripsRepo(data) {
   tripsRepository = new TripsRepository(data);
-  console.log("past", tripsRepository.getAllPastTripsForTraveler(38, "2022/06/11"))
+  // console.log("past", tripsRepository.getAllPastTripsForTraveler(44, "2022/06/11"))
   // console.log("present", tripsRepository.getAllPresentTripsForTraveler(38, "2022/06/11"))
   // console.log("future", tripsRepository.getAllFutureTripsForTraveler(38, "2022/06/11"))
   // console.log("pending", tripsRepository.getAllPendingTripsForTraveler(38, "2022/06/11"))
-  console.log("cost", tripsRepository.getTravelerTripsFromPastYear(38, "2022/06/11"))
-
+  // console.log("cost", tripsRepository.getTravelerTripsFromPastYear(44, "2022/06/11"))
+  // setTimeout(() => {
+    // getTotalCostFromPastYear();
+  // }, 1000)
 }
 
 function instantiateDestinationsRepo(data) {
   destinationsRepository = new DestinationsRepository(data);
+  getTotalCostFromPastYear();
+}
+
+function getTotalCostFromPastYear() {
+  console.log("tripsRepo", tripsRepository)
+  const travelerTripsFromPastYear = tripsRepository.getTravelerTripsFromPastYear(44, "2022/06/11")
+  const totalCostOfTrips = travelerTripsFromPastYear.reduce((totalCost, trip) => {
+    const tripDestination = destinationsRepository.getDestinationById(trip.destinationID);
+      totalCost += (tripDestination.estimatedLodgingCostPerDay * trip.duration) + (tripDestination.estimatedFlightCostPerPerson * trip.travelers)
+      console.log("totalCost1", totalCost)
+      const fee = Number((totalCost * .10).toFixed(2));
+      console.log("fee", fee)
+      totalCost += fee;
+      console.log("totalCost2", totalCost)
+    return totalCost;
+  }, 0)
+  console.log("totalCostOfTrips", totalCostOfTrips);
+  return totalCostOfTrips;
 }
