@@ -10,6 +10,14 @@ const allTravelersData = fetchData(travelersApi);
 const allTripsData = fetchData(tripsApi);
 const allDestinationsData = fetchData(destinationsApi);
 
+const addTripData = (postTripObject) => {
+  return fetch("http://localhost:3001/api/v1/trips", {
+    method: "POST",
+    headers: {"Content-Type": "application/json"},
+    body: JSON.stringify(postTripObject)
+  }).then(response => response.json());
+}
+
 // const addTripData = (url, params) => {
 //   return fetch(url,
 //     {
@@ -23,4 +31,4 @@ const allDestinationsData = fetchData(destinationsApi);
 //     .catch(function(res){ console.log(res) })
 //   )
 // }
-export {allTravelersData, allTripsData, allDestinationsData, fetchData}
+export {allTravelersData, allTripsData, allDestinationsData, fetchData, addTripData}

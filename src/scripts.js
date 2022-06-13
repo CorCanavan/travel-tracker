@@ -1,6 +1,6 @@
 // Project Files
 import './css/styles.css';
-import {allTravelersData, allTripsData, allDestinationsData, fetchData} from './apiCalls.js';
+import {allTravelersData, allTripsData, allDestinationsData, fetchData, addTripData} from './apiCalls.js';
 import TravelersRepository from './TravelersRepository.js';
 import Traveler from './Traveler.js';
 import DestinationsRepository from './DestinationsRepository.js';
@@ -41,8 +41,8 @@ tripDateInput.addEventListener('input', checkFormInputs);
 tripDurationInput.addEventListener('input', checkFormInputs);
 tripNumTravelersInput.addEventListener('input', checkFormInputs);
 tripDestinationSelection.addEventListener('input', checkFormInputs);
+submitTripButton.addEventListener('click', submitTripForm);
 
-//Need to check if the destination selection is a destination.name in the destinationsRepo
 function checkFormInputs(e) {
   const formattedDate = dayjs(tripDateInput.value).format('YYYY/MM/DD')
   const isValidDate = dayjs(formattedDate).isBefore(currentDate);
@@ -64,6 +64,31 @@ function checkFormInputs(e) {
     estimatedCost.innerText = `${getTotalTripCost([pendingTrip])}`
   }
 }
+
+function submitTripForm(e) {
+  console.log("e", e);
+  e.preventDefault();
+  let postTripObject = {
+    id: tripsRepository.trips.length + 1,
+    userID: displayedTravelersId,
+    destinationID: (destinationsRepository.destinations.find(destination => destination.destination === tripDestinationSelection.value)).id,
+    travelers: Number(tripNumTravelersInput.value),
+    date: dayjs(tripDateInput.value).format('YYYY/MM/DD'),
+    duration: Number(tripDurationInput.value),
+    status: 'pending',
+    suggestedActivities: []
+  }
+
+  addTripData(postTripObject)
+    .then(object => {
+      fetchData("http://localhost:3001/api/v1/trips").then(data => {
+        instantiateTripsRepo(data.trips);
+        populateDashboard(currentTraveler);
+      })
+    })
+    tripForm.reset();
+    submitTripButton.disabled = true;
+  }
 
 //Promise.all
 Promise.all([allTravelersData, allTripsData, allDestinationsData])
