@@ -33,7 +33,7 @@ let tripsRepository;
 let destinationsRepository;
 let currentDate = dayjs().format('YYYY/MM/DD');
 
-let displayedTravelersId = Math.floor(Math.random() * 50);
+let displayedTravelersId = Math.floor(Math.random() * 49) + 1;
 console.log("id", displayedTravelersId);
 
 //Event Listeners:
@@ -87,6 +87,7 @@ function submitTripForm(e) {
       })
     })
     tripForm.reset();
+    estimatedCost.innerText = '';
     submitTripButton.disabled = true;
   }
 
@@ -129,15 +130,15 @@ function populateDashboard(currentTraveler) {
   const allUserPendingTrips = tripsRepository.getAllPendingTripsForTraveler(displayedTravelersId, currentDate);
   const allTripsFromLastYear = tripsRepository.getTravelerTripsFromPastYear(displayedTravelersId, currentDate);
 
-  pastScrollContent.innerHTML += parseCardFromData(allUserPastTrips)
+  pastScrollContent.innerHTML = parseCardFromData(allUserPastTrips)
 
-  presentScrollContent.innerHTML += parseCardFromData(allUserPresentTrips);
+  presentScrollContent.innerHTML = parseCardFromData(allUserPresentTrips);
 
-  upcomingScrollContent.innerHTML += parseCardFromData(allUserFutureTrips);
+  upcomingScrollContent.innerHTML = parseCardFromData(allUserFutureTrips);
 
-  pendingScrollContent.innerHTML += parseCardFromData(allUserPendingTrips);
+  pendingScrollContent.innerHTML = parseCardFromData(allUserPendingTrips);
 
-  totalYearlyCost.innerText += `$${getTotalTripCost(allTripsFromLastYear)}`
+  totalYearlyCost.innerText = `$${getTotalTripCost(allTripsFromLastYear)}`
 }
 
 function parseCardFromData(data) {
