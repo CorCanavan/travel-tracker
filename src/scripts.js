@@ -18,6 +18,7 @@ let pastScrollContent = document.getElementById('pastScrollContent');
 let upcomingScrollContent = document.getElementById('upcomingScrollContent');
 let pendingScrollContent = document.getElementById('pendingScrollContent');
 let presentScrollContent = document.getElementById('presentScrollContent');
+let totalYearlyCost = document.getElementById('totalYearlyCost');
 
 // let upcomingCardDisplay = document.getElementById('upcomingDisplayBlock')
 
@@ -97,24 +98,77 @@ function populateDashboard(currentTraveler) {
           presentScrollContent.innerHTML +=
           `
           <article class="card">
-          <img
-          src=${destination.image}
-          alt=${destination.alt}
-          class="card-image"
-          />
-          <div class="bottom-card">
-          <header class="card-header">
-          <h4>${destination.destination}</h4>
-          </header>
-          <p class="date">Trip Date: ${trip.date}</p>
-          <p class="duration">Trip Duration: ${trip.duration}</p>
-          <p class="num-travelers">Number of Travelers: ${trip.travelers}</p>
-          </div>
+              <img
+                src=${destination.image}
+                alt=${destination.alt}
+                class="card-image"
+              />
+            <div class="bottom-card">
+              <header class="card-header">
+                <h4>${destination.destination}</h4>
+              </header>
+              <p class="date">Trip Date: ${trip.date}</p>
+              <p class="duration">Trip Duration: ${trip.duration}</p>
+              <p class="num-travelers">Number of Travelers: ${trip.travelers}</p>
+            </div>
           </article>
           `
     })
   }
   // display total Amount Spent This Year for partcular user.
+  const allUserFutureTrips = tripsRepository.getAllFutureTripsForTraveler(displayedTravelersId, "2022/06/12");
+    if (!allUserFutureTrips.length) {
+      upcomingScrollContent.innerHTML += `<p>No upcoming trips to display!</p>`;
+    } else {
+    allUserFutureTrips.forEach((trip, index) => {
+      const destination = destinationsRepository.getDestinationById(trip.destinationID);
+          upcomingScrollContent.innerHTML +=
+          `
+          <article class="card">
+              <img
+                src=${destination.image}
+                alt=${destination.alt}
+                class="card-image"
+              />
+            <div class="bottom-card">
+              <header class="card-header">
+                <h4>${destination.destination}</h4>
+              </header>
+              <p class="date">Trip Date: ${trip.date}</p>
+              <p class="duration">Trip Duration: ${trip.duration}</p>
+              <p class="num-travelers">Number of Travelers: ${trip.travelers}</p>
+            </div>
+          </article>
+          `
+    })
+  }
+  const allUserPendingTrips = tripsRepository.getAllPendingTripsForTraveler(displayedTravelersId, "2022/06/12");
+    if (!allUserPendingTrips.length) {
+      pendingScrollContent.innerHTML += `<p>No pending trips to display!</p>`;
+    } else {
+    allUserPendingTrips.forEach((trip, index) => {
+      const destination = destinationsRepository.getDestinationById(trip.destinationID);
+          pendingScrollContent.innerHTML +=
+          `
+          <article class="card">
+              <img
+                src=${destination.image}
+                alt=${destination.alt}
+                class="card-image"
+              />
+            <div class="bottom-card">
+              <header class="card-header">
+                <h4>${destination.destination}</h4>
+              </header>
+              <p class="date">Trip Date: ${trip.date}</p>
+              <p class="duration">Trip Duration: ${trip.duration}</p>
+              <p class="num-travelers">Number of Travelers: ${trip.travelers}</p>
+            </div>
+          </article>
+          `
+    })
+  }
+  totalYearlyCost.innerText += `$${getTotalCostFromPastYear()}`
 }
 
 // function parseCardFromData(destination, trip) {
@@ -142,7 +196,7 @@ function populateDashboard(currentTraveler) {
 
 
 function getTotalCostFromPastYear() {
-  const travelerTripsFromPastYear = tripsRepository.getTravelerTripsFromPastYear(14, "2022/06/11");
+  const travelerTripsFromPastYear = tripsRepository.getTravelerTripsFromPastYear(displayedTravelersId, "2022/06/11");
   const totalCostOfTrips = travelerTripsFromPastYear.reduce((totalCost, trip) => {
     const tripDestination = destinationsRepository.getDestinationById(trip.destinationID);
     totalCost += (tripDestination.estimatedLodgingCostPerDay * trip.duration) + (tripDestination.estimatedFlightCostPerPerson * trip.travelers);
