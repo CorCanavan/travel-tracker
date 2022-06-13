@@ -1,23 +1,30 @@
-// This is the JavaScript entry file - your code begins here
-// Do not delete or rename this file ********
-
-// An example of how you tell webpack to use a CSS (SCSS) file
+// Project Files
+import '../node_modules/@glidejs/glide/dist/css/glide.core.min.css'
+import '../node_modules/@glidejs/glide/dist/css/glide.theme.min.css'
 import './css/styles.css';
 import {allTravelersData, allTripsData, allDestinationsData, fetchData} from './apiCalls.js';
 import TravelersRepository from './TravelersRepository.js';
 import Traveler from './Traveler.js';
 import DestinationsRepository from './DestinationsRepository.js';
 import TripsRepository from './TripsRepository.js';
+
+// Third-Party File
 import dayjs from 'dayjs';
 import isBetween from 'dayjs/plugin/isBetween';
 dayjs.extend(isBetween)
 
-// An example of how you tell webpack to use an image (also need to link to it in the index.html)
-// import './images/turing-logo.png';
+import Glide, { Controls, Breakpoints } from '@glidejs/glide/dist/glide.modular.esm'
+new Glide('.glide').mount({ Controls, Breakpoints })
 
 //Query Selectors:
 let userName = document.getElementById('currentUserName');
 let cardContent = document.getElementById('cardContent');
+let card1 = document.getElementById('card-1');
+let card2 = document.getElementById('card-2');
+let card3 = document.getElementById('card-3');
+
+
+// let upcomingCardDisplay = document.getElementById('upcomingDisplayBlock')
 
 // Global Variables:
 let travelersRepository;
@@ -55,9 +62,10 @@ let displayedTravelersId = Math.floor(Math.random() * 50);
 const tripCard = `
   <article class="card">
       <img
-        src= ${mockDestination.image}
+        src=${mockDestination.image}
         alt= ${mockDestination.alt}
         class="card-image"
+        id=
       />
     <div class="bottom-card">
       <header class="card-header">
@@ -110,6 +118,11 @@ function populateDashboard() {
   userName.innerText = mockCurrentTraveler.name;
   // display trips in their respective sections: Present, Upcoming, Past
   cardContent.innerHTML = tripCard;
+  card1.innerHTML = tripCard
+  card2.innerHTML = tripCard
+  card3.innerHTML = tripCard
+
+  // upcomingCardDisplay.innerHTML = tripCard;
   // display total Amount Spent This Year for partcular user.
 }
 

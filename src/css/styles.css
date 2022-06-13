@@ -110,11 +110,25 @@ article {
 .upcoming-display {
   grid-row: 2;
   grid-column: 1 / span 3;
+  /* display: grid;
+  grid-template-columns: 100px;
+  grid-template-rows: 100px;
+  border: 2px solid purple; */
 }
+
+/* .display-grid-wrapper {
+  display: grid;
+  grid-template-columns: 200px, 200px;
+  grid-template-rows: 200px;
+  border: 2px solid purple;
+  grid-row-gap: 10px;
+  grid-column-gap: 10px;
+  position: relative;
+} */
 
 .past-display {
   grid-row: 3;
-  grid-column: 1 / span 3;
+  grid-column: 1 / span 3
 }
 
 .card-placeholder {
@@ -145,6 +159,15 @@ article {
 .card-image {
   /* height: 150px; */
   width: 50%;
+}
+
+.glide__slide {
+  width: 15% !important;
+}
+
+.glide__bullets {
+  margin-top: 20px !important;
+  bottom: -2em;
 }
 
 .bottom-card {
