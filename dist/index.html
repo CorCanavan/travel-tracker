@@ -10,7 +10,6 @@
     <title>JetSetter</title>
   </head>
   <body>
-    <!-- <img src="./images/turing-logo.png" alt="turing logo" /> -->
     <aside class="sidebar">
       <header class="sidebar-header">
         <h1 class="sidebar-title">JetSetter✈️</h1>
@@ -86,39 +85,29 @@
           <h1 class="your-trips">Your Trips</h1>
         </header>
         <section class="grid-container">
-          <article class="present-display">
-            <h2 class="display-title">Present⭐</h2>
-              <div class="card-placeholder" id="cardContent">
-              </div>
-          </article>
-          <article class="amt-display">
+          <article class="amt-display display">
             <h2 class="spent-title">Total Amount Spent This Year💸</h2>
-                <p class="total-yearly-cost" id="totalYearlyCost"> </p>
+              <p class="total-yearly-cost" id="totalYearlyCost"> </p>
           </article>
-          <article class="upcoming-display">
-            <h2 class="upcoming-title">Upcoming✈️</h2>
-              <!-- <div class="display-grid-wrapper" id="upcomingDisplayBlock">
-              </div> -->
-              <div class="glide">
-                <div class="glide__track" data-glide-el="track">
-                  <ul class="glide__slides">
-                    <li class="glide__slide" id="card-1"></li>
-                    <li class="glide__slide" id="card-2"></li>
-                    <li class="glide__slide" id="card-3"></li>
-                  </ul>
-                </div>
-                <div class="glide__bullets" data-glide-el="controls[nav]">
-                  <button class="glide__bullet" data-glide-dir="=0"></button>
-                  <button class="glide__bullet" data-glide-dir="=1"></button>
-                  <button class="glide__bullet" data-glide-dir="=2"></button>
-                </div>
+          <article class="present-display display">
+            <h2 class="display-title">Present⭐</h2>
+              <div class="present-scroll" id="presentScrollContent">
               </div>
           </article>
-          <article class="past-display">
-            <h2 class="past-title">Past🗺️</h2>
+          <article class="upcoming-display display">
+            <h2 class="upcoming-title">Upcoming✈️</h2>
+              <div class="upcoming-scroll" id="upcomingScrollContent">
+              </div>
           </article>
-          <article class="pending-display">
+          <article class="past-display display">
+            <h2 class="past-title">Past🗺️</h2>
+            <div class="past-scroll" id="pastScrollContent">
+            </div>
+          </article>
+          <article class="pending-display display">
             <h2 class="pending-title">Pending⏳</h2>
+            <div class="pending-scroll" id="pendingScrollContent">
+            </div>
           </article>
         </section>
       </div>

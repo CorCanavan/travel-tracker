@@ -19,10 +19,11 @@ body {
   font-family: 'Kdam Thmor Pro', sans-serif;
 }
 
-article {
+.display {
   background-color: #f2f79e;
   padding: 5px;
   border-radius: 10px;
+  overflow: hidden;
 }
 
 .sidebar {
@@ -92,32 +93,40 @@ article {
   grid-column: 1;
 }
 
-.card-placeholder {
+/* .card-placeholder {
   display: flex;
   justify-content: center;
-}
+} */
 
 .card {
+  border-radius: 5px;
   border: 1px solid black;
   display: flex;
-  flex-direction: row;
-  justify-content: center;
+  width: 100%;
+  min-width: 300px;
+  height: 11rem;
+  margin-right: 10px;
 }
 
 .card-image {
   width: 50%;
 }
 
-.glide__slide {
-  width: 32% !important;
+.present-scroll,
+.upcoming-scroll,
+.past-scroll,
+.pending-scroll {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  max-width: 800px;
+  overflow-x: scroll;
+  position: relative;
 }
 
-.glide__bullets {
-  margin-top: 20px !important;
-  bottom: -2em;
-}
 
 .bottom-card {
+  width: 100%;
   padding: 5px;
   display: flex;
   flex-direction: column;
