@@ -1,6 +1,4 @@
 // Project Files
-import '../node_modules/@glidejs/glide/dist/css/glide.core.min.css'
-import '../node_modules/@glidejs/glide/dist/css/glide.theme.min.css'
 import './css/styles.css';
 import {allTravelersData, allTripsData, allDestinationsData, fetchData} from './apiCalls.js';
 import TravelersRepository from './TravelersRepository.js';
@@ -13,29 +11,19 @@ import dayjs from 'dayjs';
 import isBetween from 'dayjs/plugin/isBetween';
 dayjs.extend(isBetween)
 
-import Glide, { Controls, Breakpoints } from '@glidejs/glide/dist/glide.modular.esm'
-new Glide('.glide').mount({ Controls, Breakpoints })
-
 //Query Selectors:
 let userName = document.getElementById('currentUserName');
 let cardContent = document.getElementById('cardContent');
-let card1 = document.getElementById('card-1');
-let card2 = document.getElementById('card-2');
-let card3 = document.getElementById('card-3');
-let currentTraveler;
+let scrollContent = document.getElementById('scrolly-thingy');
 
 
 // let upcomingCardDisplay = document.getElementById('upcomingDisplayBlock')
 
 // Global Variables:
+let currentTraveler;
 let travelersRepository;
 let tripsRepository;
 let destinationsRepository;
-let mockCurrentTraveler =   {
-    "id": 2,
-    "name": "Rachael Vaughten",
-    "travelerType": "thrill-seeker"
-  };
 
 let mockPastTrip = {
 "id": 177,
@@ -59,7 +47,6 @@ let mockDestination = {
 
 
 let displayedTravelersId = Math.floor(Math.random() * 50);
-console.log("id", displayedTravelersId);
 
 const tripCard = `
   <article class="card">
@@ -79,10 +66,6 @@ const tripCard = `
     </div>
   </article>
 `
-
-//Event Listeners:
-// ON page load, want to get all the data for a particular user based on ID.
-// window.addEventListener('load', populateDashboard);
 
 //Promise.all
 Promise.all([allTravelersData, allTripsData, allDestinationsData])
@@ -104,32 +87,10 @@ Promise.all([allTravelersData, allTripsData, allDestinationsData])
 
 function instantiateTravelersRepo(travelersData) {
   travelersRepository = new TravelersRepository(travelersData);
-  // console.log("TR", travelersRepository);
-  // currentTraveler = travelersRepository.getTravelerById(displayedTravelersId);
-  // instantiateTraveler(currentTraveler)
-
-  // console.log('shirt')
 }
 
-// function instantiateTraveler(currentTraveler) {
-  // console.log('pants')
-  // return travelersRepository.travelers.map(traveler => new Traveler(traveler));
-//   currentTraveler = new Traveler(currentTraveler);
-//   console.log("current", currentTraveler);
-//   populateDashboard(currentTraveler);
-// }
-
 function instantiateTripsRepo(data) {
-  // const tripsData = data.map(trip => new Trip(trip))
   tripsRepository = new TripsRepository(data);
-  // console.log("past", tripsRepository.getAllPastTripsForTraveler(44, "2022/06/11"))
-  // console.log("present", tripsRepository.getAllPresentTripsForTraveler(38, "2022/06/11"))
-  // console.log("future", tripsRepository.getAllFutureTripsForTraveler(38, "2022/06/11"))
-  // console.log("pending", tripsRepository.getAllPendingTripsForTraveler(38, "2022/06/11"))
-  // console.log("cost", tripsRepository.getTravelerTripsFromPastYear(44, "2022/06/11"))
-  // setTimeout(() => {
-    // getTotalCostFromPastYear();
-  // }, 1000)
 }
 
 function instantiateDestinationsRepo(data) {
@@ -140,17 +101,39 @@ function instantiateDestinationsRepo(data) {
 
 function populateDashboard(currentTraveler) {
   console.log("poptrav", currentTraveler)
-  // currentTraveler = travelersRepository.getTravelerById(displayedTravelersId);
-  // currentTraveler = travelersRepository.getTravelerById(displayedTravelersId)
-  // console.log("currentTrav", currentTraveler)
   // on page load I want the Welcome message to update to the User's first name.
   userName.innerText = `${currentTraveler.getTravelerFirstName()}`;
-  // display trips in their respective sections: Present, Upcoming, Past
-  cardContent.innerHTML = tripCard;
-  card1.innerHTML = tripCard
-  card2.innerHTML = tripCard
-  card3.innerHTML = tripCard
+  const allUserPastTrips = tripsRepository.getAllPastTripsForTraveler(displayedTravelersId, "2022/06/12");
 
+  // display trips in their respective sections: Present, Upcoming, Past
+allUserPastTrips.forEach((trip, index) => {
+  scrollContent.innerHTML +=
+  `
+  <article class="card">
+      <img
+        src=${mockDestination.image}
+        alt= ${mockDestination.alt}
+        class="card-image"
+        id=
+      />
+    <div class="bottom-card">
+      <header class="card-header">
+        <h4>${mockDestination.destination}</h4>
+      </header>
+      <p class="date">Trip Date: ${trip.date}</p>
+      <p class="duration">Trip Duration: ${trip.duration}</p>
+      <p class="num-travelers">Number of Travelers: ${trip.travelers}</p>
+    </div>
+  </article>
+`
+  })
+  // cardContent.innerHTML = tripCard;
+  // card1.innerHTML = tripCard
+  // card2.innerHTML = tripCard
+  // card3.innerHTML = tripCard
+  // const allUserPastTrips = tripsRepository.getAllPastTripsForTraveler(displayedTravelersId, "2022/06/12");
+  console.log("user", allUserPastTrips);
+  //find a way to populate glider w objects.
   // upcomingCardDisplay.innerHTML = tripCard;
   // display total Amount Spent This Year for partcular user.
 }
