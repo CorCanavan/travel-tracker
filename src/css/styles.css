@@ -9,16 +9,8 @@ html {
 }
 
 body {
-  /* background: radial-gradient(
-    circle,
-    rgba(63, 94, 251, 1) 0%,
-    rgba(252, 70, 107, 1) 100%
-  ); */
   display: flex;
-  /* color: #967d69; */
-  /* font-family: 'Kdam Thmor Pro', sans-serif; */
   height: 100%;
-  /* border: 1px solid red; */
 }
 
 .sidebar-title,
@@ -26,14 +18,6 @@ body {
 .your-trips {
   font-family: 'Kdam Thmor Pro', sans-serif;
 }
-
-/* .welcome-greeting,
-.display-title,
-.spent-title,
-.upcoming-title,
-.past-title {
-  font-family: 'Roboto Condensed', sans-serif;
-} */
 
 article {
   background-color: #f2f79e;
@@ -51,17 +35,11 @@ article {
 }
 
 .form-wrapper {
-  /* border: 2px solid green; */
   height: 80%;
   display: flex;
   align-items: flex-end;
 }
 .sidebar-form {
-  /* align-content: center; */
-  /* dislay: flex;
-  flex-direction: column
-  align-items: center; */
-  /* border: 2px solid pink; */
   margin: 10px;
   height: 300px;
 }
@@ -69,15 +47,12 @@ article {
 .dashboard {
   background-color: #a8d4ad;
   width: 100%;
-  /* border: 2px solid orange; */
 }
 
 .content-wrapper {
   padding-left: 20px;
   display: flex;
   flex-direction: column;
-  /* align-items: center; */
-  /* border: 2px solid purple; */
   height: 100%;
 }
 
@@ -91,78 +66,50 @@ article {
 .grid-container {
   display: grid;
   position: relative;
-  /* top: 50px; */
-  /* max-height: 900px; */
-  grid-template-columns: 270px 270px 270px;
-  grid-template-rows: 180px 230px 230px;
+  grid-template-columns: 370px 370px;
+  grid-template-rows: 100px 230px 230px;
   grid-row-gap: 25px;
   grid-column-gap: 20px;
 }
 
 .present-display {
-  grid-column: 1 / span 2;
-  grid-row: 1;
-  /* display: grid;
-  grid-template-columns: 100px;
-  grid-template-rows: 100px; */
+  grid-column: 1;
+  grid-row: 2;
 }
 
 .upcoming-display {
   grid-row: 2;
-  grid-column: 1 / span 3;
-  /* display: grid;
-  grid-template-columns: 100px;
-  grid-template-rows: 100px;
-  border: 2px solid purple; */
+  grid-column: 2;
 }
 
-/* .display-grid-wrapper {
-  display: grid;
-  grid-template-columns: 200px, 200px;
-  grid-template-rows: 200px;
-  border: 2px solid purple;
-  grid-row-gap: 10px;
-  grid-column-gap: 10px;
-  position: relative;
-} */
+.amt-display {
+  grid-row: 1;
+  grid-column: 1/ span 2;
+}
 
 .past-display {
   grid-row: 3;
-  grid-column: 1 / span 3
+  grid-column: 1;
 }
 
 .card-placeholder {
   display: flex;
   justify-content: center;
-  /* display: grid;
-  grid-template-columns: 200px 200px 200px;
-  grid-template-rows: 150px; */
-  height: 130px;
-  width: 600px;
 }
 
 .card {
   border: 1px solid black;
-  /* background-color: #b9baa3;
-  box-shadow: 1px 2px 1px; */
   display: flex;
   flex-direction: row;
   justify-content: center;
 }
 
-/* .top-card {
-  height: 150px;
-  display: block;
-  position: relative;
-} */
-
 .card-image {
-  /* height: 150px; */
   width: 50%;
 }
 
 .glide__slide {
-  width: 15% !important;
+  width: 32% !important;
 }
 
 .glide__bullets {
@@ -173,13 +120,6 @@ article {
 .bottom-card {
   padding: 5px;
   display: flex;
-  /* height: 197px; */
   flex-direction: column;
   justify-content: center;
-  /* justify-content: space-between; */
 }
-
-/* .card-header {
-  height: 40px;
-  width: 100%;
-} */
