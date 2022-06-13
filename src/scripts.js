@@ -13,7 +13,6 @@ dayjs.extend(isBetween)
 
 //Query Selectors:
 let userName = document.getElementById('currentUserName');
-let cardContent = document.getElementById('cardContent');
 let pastScrollContent = document.getElementById('pastScrollContent');
 let upcomingScrollContent = document.getElementById('upcomingScrollContent');
 let pendingScrollContent = document.getElementById('pendingScrollContent');
@@ -61,7 +60,7 @@ function instantiateDestinationsRepo(data) {
 
 function populateDashboard(currentTraveler) {
   userName.innerText = `${currentTraveler.getTravelerFirstName()}`;
-  
+
   const allUserPastTrips = tripsRepository.getAllPastTripsForTraveler(displayedTravelersId, "2022/06/12");
   const allUserPresentTrips = tripsRepository.getAllPresentTripsForTraveler(displayedTravelersId, "2022/06/12");
   const allUserFutureTrips = tripsRepository.getAllFutureTripsForTraveler(displayedTravelersId, "2022/06/12");
