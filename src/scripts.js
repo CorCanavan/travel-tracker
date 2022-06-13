@@ -20,7 +20,6 @@ let pendingScrollContent = document.getElementById('pendingScrollContent');
 let presentScrollContent = document.getElementById('presentScrollContent');
 let totalYearlyCost = document.getElementById('totalYearlyCost');
 
-// let upcomingCardDisplay = document.getElementById('upcomingDisplayBlock')
 
 // Global Variables:
 let currentTraveler;
@@ -57,142 +56,55 @@ function instantiateTripsRepo(data) {
 }
 
 function instantiateDestinationsRepo(data) {
-  // const destinationsData = data.map(destination => new Traveler(traveler))
   destinationsRepository = new DestinationsRepository(data);
-  getTotalCostFromPastYear();
 }
 
 function populateDashboard(currentTraveler) {
-  console.log("poptrav", currentTraveler)
-  // on page load I want the Welcome message to update to the User's first name.
   userName.innerText = `${currentTraveler.getTravelerFirstName()}`;
+  
   const allUserPastTrips = tripsRepository.getAllPastTripsForTraveler(displayedTravelersId, "2022/06/12");
-    allUserPastTrips.forEach((trip, index) => {
-      const destination = destinationsRepository.getDestinationById(trip.destinationID);
-      pastScrollContent.innerHTML +=
-          `
-          <article class="card">
-              <img
-                src=${destination.image}
-                alt=${destination.alt}
-                class="card-image"
-              />
-            <div class="bottom-card">
-              <header class="card-header">
-                <h4>${destination.destination}</h4>
-              </header>
-              <p class="date">Trip Date: ${trip.date}</p>
-              <p class="duration">Trip Duration: ${trip.duration}</p>
-              <p class="num-travelers">Number of Travelers: ${trip.travelers}</p>
-            </div>
-          </article>
-          `
-  })
   const allUserPresentTrips = tripsRepository.getAllPresentTripsForTraveler(displayedTravelersId, "2022/06/12");
-    if (!allUserPresentTrips.length) {
-      presentScrollContent.innerHTML += `<p>No present trips to display!</p>`;
-    } else {
-    allUserPresentTrips.forEach((trip, index) => {
-      console.log("what is this", allUserPresentTrips)
-      const destination = destinationsRepository.getDestinationById(trip.destinationID);
-          presentScrollContent.innerHTML +=
-          `
-          <article class="card">
-              <img
-                src=${destination.image}
-                alt=${destination.alt}
-                class="card-image"
-              />
-            <div class="bottom-card">
-              <header class="card-header">
-                <h4>${destination.destination}</h4>
-              </header>
-              <p class="date">Trip Date: ${trip.date}</p>
-              <p class="duration">Trip Duration: ${trip.duration}</p>
-              <p class="num-travelers">Number of Travelers: ${trip.travelers}</p>
-            </div>
-          </article>
-          `
-    })
-  }
-  // display total Amount Spent This Year for partcular user.
   const allUserFutureTrips = tripsRepository.getAllFutureTripsForTraveler(displayedTravelersId, "2022/06/12");
-    if (!allUserFutureTrips.length) {
-      upcomingScrollContent.innerHTML += `<p>No upcoming trips to display!</p>`;
-    } else {
-    allUserFutureTrips.forEach((trip, index) => {
-      const destination = destinationsRepository.getDestinationById(trip.destinationID);
-          upcomingScrollContent.innerHTML +=
-          `
-          <article class="card">
-              <img
-                src=${destination.image}
-                alt=${destination.alt}
-                class="card-image"
-              />
-            <div class="bottom-card">
-              <header class="card-header">
-                <h4>${destination.destination}</h4>
-              </header>
-              <p class="date">Trip Date: ${trip.date}</p>
-              <p class="duration">Trip Duration: ${trip.duration}</p>
-              <p class="num-travelers">Number of Travelers: ${trip.travelers}</p>
-            </div>
-          </article>
-          `
-    })
-  }
   const allUserPendingTrips = tripsRepository.getAllPendingTripsForTraveler(displayedTravelersId, "2022/06/12");
-    if (!allUserPendingTrips.length) {
-      pendingScrollContent.innerHTML += `<p>No pending trips to display!</p>`;
-    } else {
-    allUserPendingTrips.forEach((trip, index) => {
-      const destination = destinationsRepository.getDestinationById(trip.destinationID);
-          pendingScrollContent.innerHTML +=
-          `
-          <article class="card">
-              <img
-                src=${destination.image}
-                alt=${destination.alt}
-                class="card-image"
-              />
-            <div class="bottom-card">
-              <header class="card-header">
-                <h4>${destination.destination}</h4>
-              </header>
-              <p class="date">Trip Date: ${trip.date}</p>
-              <p class="duration">Trip Duration: ${trip.duration}</p>
-              <p class="num-travelers">Number of Travelers: ${trip.travelers}</p>
-            </div>
-          </article>
-          `
-    })
-  }
+
+  pastScrollContent.innerHTML += parseCardFromData(allUserPastTrips)
+
+  presentScrollContent.innerHTML += parseCardFromData(allUserPresentTrips);
+
+  upcomingScrollContent.innerHTML += parseCardFromData(allUserFutureTrips);
+
+  pendingScrollContent.innerHTML += parseCardFromData(allUserPendingTrips);
+
   totalYearlyCost.innerText += `$${getTotalCostFromPastYear()}`
 }
 
-// function parseCardFromData(destination, trip) {
-//   return
-//   `
-//     <article class="card">
-//         <img
-//           src=${destination.image}
-//           alt=${destination.alt}
-//           class="card-image"
-//         />
-//       <div class="bottom-card">
-//         <header class="card-header">
-//           <h4>${destination.destination}</h4>
-//         </header>
-//         <p class="date">Trip Date: ${trip.date}</p>
-//         <p class="duration">Trip Duration: ${trip.duration}</p>
-//         <p class="num-travelers">Number of Travelers: ${trip.travelers}</p>
-//       </div>
-//     </article>
-//   `
-// }
+function parseCardFromData(data) {
+  if (!data.length) {
+    return `<p>No trips to display!</p>`
+  }
 
-
+  return data.reduce((acc, trip) => {
+    const destination = destinationsRepository.getDestinationById(trip.destinationID);
+    acc += `
+      <article class="card">
+          <img
+            src=${destination.image}
+            alt=${destination.alt}
+            class="card-image"
+          />
+        <div class="bottom-card">
+          <header class="card-header">
+            <h4>${destination.destination}</h4>
+          </header>
+          <p class="date">Trip Date: ${trip.date}</p>
+          <p class="duration">Trip Duration: ${trip.duration}</p>
+          <p class="num-travelers">Number of Travelers: ${trip.travelers}</p>
+        </div>
+      </article>
+    `
+    return acc
+  }, ``)
+}
 
 
 function getTotalCostFromPastYear() {
