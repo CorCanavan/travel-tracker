@@ -93,10 +93,10 @@ body {
   grid-column: 1;
 }
 
-.card-placeholder {
+/* .card-placeholder {
   display: flex;
   justify-content: center;
-}
+} */
 
 .card {
   border-radius: 5px;
@@ -112,7 +112,10 @@ body {
   width: 50%;
 }
 
-.scrolls-magrolls {
+.present-scroll,
+.upcoming-scroll,
+.past-scroll,
+.pending-scroll {
   display: flex;
   flex-direction: row;
   width: 100%;

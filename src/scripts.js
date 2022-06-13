@@ -14,8 +14,10 @@ dayjs.extend(isBetween)
 //Query Selectors:
 let userName = document.getElementById('currentUserName');
 let cardContent = document.getElementById('cardContent');
-let scrollContent = document.getElementById('scrolly-thingy');
-
+let pastScrollContent = document.getElementById('pastScrollContent');
+let upcomingScrollContent = document.getElementById('upcomingScrollContent');
+let pendingScrollContent = document.getElementById('pendingScrollContent');
+let presentScrollContent = document.getElementById('presentScrollContent');
 
 // let upcomingCardDisplay = document.getElementById('upcomingDisplayBlock')
 
@@ -25,47 +27,7 @@ let travelersRepository;
 let tripsRepository;
 let destinationsRepository;
 
-let mockPastTrip = {
-"id": 177,
-"userID": 2,
-"destinationID": 20,
-"travelers": 6,
-"date": "2020/01/29",
-"duration": 8,
-"status": "approved",
-"suggestedActivities": []
-}
-
-let mockDestination = {
-"id": 20,
-"destination": "Miami, Florida",
-"estimatedLodgingCostPerDay": 158,
-"estimatedFlightCostPerPerson": 275,
-"image": "https://images.unsplash.com/photo-1514214246283-d427a95c5d2f?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1573&q=80",
-"alt": "sand with palm trees and tall buildings in the background"
-}
-
-
 let displayedTravelersId = Math.floor(Math.random() * 50);
-
-const tripCard = `
-  <article class="card">
-      <img
-        src=${mockDestination.image}
-        alt= ${mockDestination.alt}
-        class="card-image"
-        id=
-      />
-    <div class="bottom-card">
-      <header class="card-header">
-        <h4>${mockDestination.destination}</h4>
-      </header>
-      <p class="date">Trip Date: ${mockPastTrip.date}</p>
-      <p class="duration">Trip Duration: ${mockPastTrip.duration}</p>
-      <p class="num-travelers">Number of Travelers: ${mockPastTrip.travelers}</p>
-    </div>
-  </article>
-`
 
 //Promise.all
 Promise.all([allTravelersData, allTripsData, allDestinationsData])
@@ -104,39 +66,78 @@ function populateDashboard(currentTraveler) {
   // on page load I want the Welcome message to update to the User's first name.
   userName.innerText = `${currentTraveler.getTravelerFirstName()}`;
   const allUserPastTrips = tripsRepository.getAllPastTripsForTraveler(displayedTravelersId, "2022/06/12");
-
-  // display trips in their respective sections: Present, Upcoming, Past
-allUserPastTrips.forEach((trip, index) => {
-  scrollContent.innerHTML +=
-  `
-  <article class="card">
-      <img
-        src=${mockDestination.image}
-        alt= ${mockDestination.alt}
-        class="card-image"
-        id=
-      />
-    <div class="bottom-card">
-      <header class="card-header">
-        <h4>${mockDestination.destination}</h4>
-      </header>
-      <p class="date">Trip Date: ${trip.date}</p>
-      <p class="duration">Trip Duration: ${trip.duration}</p>
-      <p class="num-travelers">Number of Travelers: ${trip.travelers}</p>
-    </div>
-  </article>
-`
+    allUserPastTrips.forEach((trip, index) => {
+      const destination = destinationsRepository.getDestinationById(trip.destinationID);
+      pastScrollContent.innerHTML +=
+          `
+          <article class="card">
+              <img
+                src=${destination.image}
+                alt=${destination.alt}
+                class="card-image"
+              />
+            <div class="bottom-card">
+              <header class="card-header">
+                <h4>${destination.destination}</h4>
+              </header>
+              <p class="date">Trip Date: ${trip.date}</p>
+              <p class="duration">Trip Duration: ${trip.duration}</p>
+              <p class="num-travelers">Number of Travelers: ${trip.travelers}</p>
+            </div>
+          </article>
+          `
   })
-  // cardContent.innerHTML = tripCard;
-  // card1.innerHTML = tripCard
-  // card2.innerHTML = tripCard
-  // card3.innerHTML = tripCard
-  // const allUserPastTrips = tripsRepository.getAllPastTripsForTraveler(displayedTravelersId, "2022/06/12");
-  console.log("user", allUserPastTrips);
-  //find a way to populate glider w objects.
-  // upcomingCardDisplay.innerHTML = tripCard;
+  const allUserPresentTrips = tripsRepository.getAllPresentTripsForTraveler(displayedTravelersId, "2022/06/12");
+    if (!allUserPresentTrips.length) {
+      presentScrollContent.innerHTML += `<p>No present trips to display!</p>`;
+    } else {
+    allUserPresentTrips.forEach((trip, index) => {
+      console.log("what is this", allUserPresentTrips)
+      const destination = destinationsRepository.getDestinationById(trip.destinationID);
+          presentScrollContent.innerHTML +=
+          `
+          <article class="card">
+          <img
+          src=${destination.image}
+          alt=${destination.alt}
+          class="card-image"
+          />
+          <div class="bottom-card">
+          <header class="card-header">
+          <h4>${destination.destination}</h4>
+          </header>
+          <p class="date">Trip Date: ${trip.date}</p>
+          <p class="duration">Trip Duration: ${trip.duration}</p>
+          <p class="num-travelers">Number of Travelers: ${trip.travelers}</p>
+          </div>
+          </article>
+          `
+    })
+  }
   // display total Amount Spent This Year for partcular user.
 }
+
+// function parseCardFromData(destination, trip) {
+//   return
+//   `
+//     <article class="card">
+//         <img
+//           src=${destination.image}
+//           alt=${destination.alt}
+//           class="card-image"
+//         />
+//       <div class="bottom-card">
+//         <header class="card-header">
+//           <h4>${destination.destination}</h4>
+//         </header>
+//         <p class="date">Trip Date: ${trip.date}</p>
+//         <p class="duration">Trip Duration: ${trip.duration}</p>
+//         <p class="num-travelers">Number of Travelers: ${trip.travelers}</p>
+//       </div>
+//     </article>
+//   `
+// }
+
 
 
 
