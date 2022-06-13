@@ -22,6 +22,7 @@ let cardContent = document.getElementById('cardContent');
 let card1 = document.getElementById('card-1');
 let card2 = document.getElementById('card-2');
 let card3 = document.getElementById('card-3');
+let currentTraveler;
 
 
 // let upcomingCardDisplay = document.getElementById('upcomingDisplayBlock')
@@ -58,6 +59,7 @@ let mockDestination = {
 
 
 let displayedTravelersId = Math.floor(Math.random() * 50);
+console.log("id", displayedTravelersId);
 
 const tripCard = `
   <article class="card">
@@ -80,23 +82,45 @@ const tripCard = `
 
 //Event Listeners:
 // ON page load, want to get all the data for a particular user based on ID.
-window.addEventListener('load', populateDashboard);
+// window.addEventListener('load', populateDashboard);
 
 //Promise.all
 Promise.all([allTravelersData, allTripsData, allDestinationsData])
   .then(data => {
-    instantiateTravelersRepo(data[0].travelers);
+    const travelersData = data[0].travelers.map(traveler => new Traveler(traveler))
+    instantiateTravelersRepo(travelersData);
     instantiateTripsRepo(data[1].trips);
     instantiateDestinationsRepo(data[2].destinations);
   })
-  .catch((error) => alert("Oops something went wrong. Try again later."));
+  .catch((error) => {
+    console.error("error", error);
+    alert("Oops something went wrong. Try again later.")
+  })
+  .finally(() => {
+    currentTraveler = travelersRepository.getTravelerById(displayedTravelersId);
+    populateDashboard(currentTraveler)
+  })
 
 
-function instantiateTravelersRepo(data) {
-  travelersRepository = new TravelersRepository(data);
+function instantiateTravelersRepo(travelersData) {
+  travelersRepository = new TravelersRepository(travelersData);
+  // console.log("TR", travelersRepository);
+  // currentTraveler = travelersRepository.getTravelerById(displayedTravelersId);
+  // instantiateTraveler(currentTraveler)
+
+  // console.log('shirt')
 }
 
+// function instantiateTraveler(currentTraveler) {
+  // console.log('pants')
+  // return travelersRepository.travelers.map(traveler => new Traveler(traveler));
+//   currentTraveler = new Traveler(currentTraveler);
+//   console.log("current", currentTraveler);
+//   populateDashboard(currentTraveler);
+// }
+
 function instantiateTripsRepo(data) {
+  // const tripsData = data.map(trip => new Trip(trip))
   tripsRepository = new TripsRepository(data);
   // console.log("past", tripsRepository.getAllPastTripsForTraveler(44, "2022/06/11"))
   // console.log("present", tripsRepository.getAllPresentTripsForTraveler(38, "2022/06/11"))
@@ -109,13 +133,18 @@ function instantiateTripsRepo(data) {
 }
 
 function instantiateDestinationsRepo(data) {
+  // const destinationsData = data.map(destination => new Traveler(traveler))
   destinationsRepository = new DestinationsRepository(data);
   getTotalCostFromPastYear();
 }
 
-function populateDashboard() {
+function populateDashboard(currentTraveler) {
+  console.log("poptrav", currentTraveler)
+  // currentTraveler = travelersRepository.getTravelerById(displayedTravelersId);
+  // currentTraveler = travelersRepository.getTravelerById(displayedTravelersId)
+  // console.log("currentTrav", currentTraveler)
   // on page load I want the Welcome message to update to the User's first name.
-  userName.innerText = mockCurrentTraveler.name;
+  userName.innerText = `${currentTraveler.getTravelerFirstName()}`;
   // display trips in their respective sections: Present, Upcoming, Past
   cardContent.innerHTML = tripCard;
   card1.innerHTML = tripCard

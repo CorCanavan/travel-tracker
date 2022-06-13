@@ -19,7 +19,7 @@ body {
   font-family: 'Kdam Thmor Pro', sans-serif;
 }
 
-article {
+.display {
   background-color: #f2f79e;
   padding: 5px;
   border-radius: 10px;
@@ -98,6 +98,7 @@ article {
 }
 
 .card {
+  border-radius: 5px;
   border: 1px solid black;
   display: flex;
   flex-direction: row;
