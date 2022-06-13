@@ -2,6 +2,9 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Kdam+Thmor+Pro&family=Roboto+Condensed:wght@300&display=swap" rel="stylesheet">
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>JetSetter</title>
@@ -26,9 +29,13 @@
               name="date"
               required
             />
-            <label for="trip-duration-input" class="trip-duration-input-label"
-              >Duration:</label
+            <label
+              for="trip-duration-input"
+              class="trip-duration-input-label"
             >
+              Duration:
+            </label>
+
             <input
               class="user-input duration-input"
               id="trip-duration-input"
@@ -72,7 +79,7 @@
     </aside>
     <main class="dashboard">
       <nav class="nav-bar">
-        <h1 class="welcome" id="welcome">Welcome, Name!</h1>
+        <h1 class="welcome-greeting">Welcome, <span id="currentUserName">Name</span>!</h1>
       </nav>
       <div class="content-wrapper">
         <header class="trip-header">
@@ -81,15 +88,37 @@
         <section class="grid-container">
           <article class="present-display">
             <h2 class="display-title">Present⭐</h2>
+              <div class="card-placeholder" id="cardContent">
+              </div>
           </article>
           <article class="amt-display">
             <h2 class="spent-title">Total Amount Spent This Year💸</h2>
+                <p class="total-yearly-cost" id="totalYearlyCost"> </p>
           </article>
           <article class="upcoming-display">
             <h2 class="upcoming-title">Upcoming✈️</h2>
+              <!-- <div class="display-grid-wrapper" id="upcomingDisplayBlock">
+              </div> -->
+              <div class="glide">
+                <div class="glide__track" data-glide-el="track">
+                  <ul class="glide__slides">
+                    <li class="glide__slide" id="card-1"></li>
+                    <li class="glide__slide" id="card-2"></li>
+                    <li class="glide__slide" id="card-3"></li>
+                  </ul>
+                </div>
+                <div class="glide__bullets" data-glide-el="controls[nav]">
+                  <button class="glide__bullet" data-glide-dir="=0"></button>
+                  <button class="glide__bullet" data-glide-dir="=1"></button>
+                  <button class="glide__bullet" data-glide-dir="=2"></button>
+                </div>
+              </div>
           </article>
           <article class="past-display">
             <h2 class="past-title">Past🗺️</h2>
+          </article>
+          <article class="pending-display">
+            <h2 class="pending-title">Pending⏳</h2>
           </article>
         </section>
       </div>

@@ -9,14 +9,14 @@ html {
 }
 
 body {
-  /* background: radial-gradient(
-    circle,
-    rgba(63, 94, 251, 1) 0%,
-    rgba(252, 70, 107, 1) 100%
-  ); */
   display: flex;
   height: 100%;
-  /* border: 1px solid red; */
+}
+
+.sidebar-title,
+.form-title,
+.your-trips {
+  font-family: 'Kdam Thmor Pro', sans-serif;
 }
 
 article {
@@ -35,17 +35,11 @@ article {
 }
 
 .form-wrapper {
-  /* border: 2px solid green; */
   height: 80%;
   display: flex;
   align-items: flex-end;
 }
 .sidebar-form {
-  /* align-content: center; */
-  /* dislay: flex;
-  flex-direction: column
-  align-items: center; */
-  /* border: 2px solid pink; */
   margin: 10px;
   height: 300px;
 }
@@ -53,15 +47,12 @@ article {
 .dashboard {
   background-color: #a8d4ad;
   width: 100%;
-  /* border: 2px solid orange; */
 }
 
 .content-wrapper {
   padding-left: 20px;
   display: flex;
   flex-direction: column;
-  /* align-items: center; */
-  /* border: 2px solid purple; */
   height: 100%;
 }
 
@@ -75,25 +66,60 @@ article {
 .grid-container {
   display: grid;
   position: relative;
-  /* top: 50px; */
-  /* max-height: 900px; */
-  grid-template-columns: 270px 270px 270px;
-  grid-template-rows: 180px 230px 230px;
+  grid-template-columns: 370px 370px;
+  grid-template-rows: 100px 230px 230px;
   grid-row-gap: 25px;
   grid-column-gap: 20px;
 }
 
 .present-display {
-  grid-column: 1 / span 2;
-  grid-row: 1;
+  grid-column: 1;
+  grid-row: 2;
 }
 
 .upcoming-display {
   grid-row: 2;
-  grid-column: 1 / span 3;
+  grid-column: 2;
+}
+
+.amt-display {
+  grid-row: 1;
+  grid-column: 1/ span 2;
 }
 
 .past-display {
   grid-row: 3;
-  grid-column: 1 / span 3;
+  grid-column: 1;
+}
+
+.card-placeholder {
+  display: flex;
+  justify-content: center;
+}
+
+.card {
+  border: 1px solid black;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.card-image {
+  width: 50%;
+}
+
+.glide__slide {
+  width: 32% !important;
+}
+
+.glide__bullets {
+  margin-top: 20px !important;
+  bottom: -2em;
+}
+
+.bottom-card {
+  padding: 5px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
