@@ -18,15 +18,28 @@ let upcomingScrollContent = document.getElementById('upcomingScrollContent');
 let pendingScrollContent = document.getElementById('pendingScrollContent');
 let presentScrollContent = document.getElementById('presentScrollContent');
 let totalYearlyCost = document.getElementById('totalYearlyCost');
-
+let tripForm = document.getElementById('trip-form');
+let tripDateInput = document.getElementById('trip-date-input');
+let tripDurationInput = document.getElementById('trip-duration-input');
+let tripNumTravelersInput = document.getElementById('num-trav-input');
+let tripDestinationSelection = document.getElementById('destination-selection');
 
 // Global Variables:
 let currentTraveler;
 let travelersRepository;
 let tripsRepository;
 let destinationsRepository;
+let currentDate = dayjs().format('YYYY/MM/DD');
+console.log("currentDate", currentDate)
 
 let displayedTravelersId = Math.floor(Math.random() * 50);
+
+//Event Listeners:
+// tripDateInput.addEventListener('input', checkFormInputs);
+// tripDurationInput.addEventListener('input', checkFormInputs);
+// tripNumTravelersInput.addEventListener('input', checkFormInputs);
+// tripDestinationSelection.addEventListener('input', checkFormInputs);
+
 
 //Promise.all
 Promise.all([allTravelersData, allTripsData, allDestinationsData])
@@ -93,11 +106,12 @@ function parseCardFromData(data) {
           />
         <div class="bottom-card">
           <header class="card-header">
-            <h4>${destination.destination}</h4>
+            <h1>${destination.destination}</h1>
           </header>
-          <p class="date">Trip Date: ${trip.date}</p>
-          <p class="duration">Trip Duration: ${trip.duration}</p>
-          <p class="num-travelers">Number of Travelers: ${trip.travelers}</p>
+          <p class="date">Date: ${trip.date}</p>
+          <p class="duration">Duration: ${trip.duration}</p>
+          <p class="num-travelers">Traveler(s): ${trip.travelers}</p>
+          <p class="status">Status: ${trip.status}</p>
         </div>
       </article>
     `

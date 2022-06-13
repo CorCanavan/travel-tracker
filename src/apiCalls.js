@@ -10,5 +10,17 @@ const allTravelersData = fetchData(travelersApi);
 const allTripsData = fetchData(tripsApi);
 const allDestinationsData = fetchData(destinationsApi);
 
-
+// const addTripData = (url, params) => {
+//   return fetch(url,
+//     {
+//         headers: {
+//           'Content-Type': 'application/json'
+//         },
+//         method: "POST",
+//         body: JSON.stringify(params)
+//     })
+//     .then(function(res){ console.log(res) })
+//     .catch(function(res){ console.log(res) })
+//   )
+// }
 export {allTravelersData, allTripsData, allDestinationsData, fetchData}
