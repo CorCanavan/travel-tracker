@@ -24,6 +24,7 @@ let tripDurationInput = document.getElementById('trip-duration-input');
 let tripNumTravelersInput = document.getElementById('num-trav-input');
 let tripDestinationSelection = document.getElementById('destination-selection');
 let submitTripButton = document.getElementById('submitTrip');
+let estimatedCost = document.getElementById('estCost');
 
 // Global Variables:
 let currentTraveler;
@@ -33,6 +34,7 @@ let destinationsRepository;
 let currentDate = dayjs().format('YYYY/MM/DD');
 
 let displayedTravelersId = Math.floor(Math.random() * 50);
+console.log("id", displayedTravelersId);
 
 //Event Listeners:
 tripDateInput.addEventListener('input', checkFormInputs);
@@ -52,6 +54,14 @@ function checkFormInputs(e) {
     submitTripButton.disabled = false;
     const getDestinationByLocation = destinationsRepository.destinations.find(destination => destination.destination === tripDestinationSelection.value)
     console.log("test", getDestinationByLocation);
+    const pendingTrip = {
+      userID: displayedTravelersId,
+      destinationID: getDestinationByLocation.id,
+      travelers: Number(tripNumTravelersInput.value),
+      duration: Number(tripDurationInput.value)
+    }
+    console.log(pendingTrip, "pendingTrip");
+    estimatedCost.innerText = `${getTotalTripCost([pendingTrip])}`
   }
 }
 
