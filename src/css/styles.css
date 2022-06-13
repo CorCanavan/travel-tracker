@@ -40,9 +40,24 @@ body {
   display: flex;
   align-items: flex-end;
 }
+
 .sidebar-form {
   margin: 10px;
   height: 300px;
+}
+
+form > label {
+  font-size: 15px;
+  font-weight: bold;
+  grid-column: 1;
+}
+
+.trip-form {
+  display: grid;
+  grid-template-columns: 100px, 100px;
+  grid-template-rows: 50px, 50px, 50px, 50px;
+  /* grid-gap: 5px;
+  padding: 15px; */
 }
 
 .dashboard {
