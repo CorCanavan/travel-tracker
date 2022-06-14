@@ -2,9 +2,12 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Kdam+Thmor+Pro&family=Roboto+Condensed:wght@300&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Kdam+Thmor+Pro&family=Roboto+Condensed:wght@300&display=swap"
+      rel="stylesheet"
+    />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>JetSetter</title>
@@ -17,7 +20,7 @@
       <div class="form-wrapper">
         <section class="sidebar-form">
           <header class="form-header">
-            <h2 class="form-title">Let's Jet!</h2>
+            <h2 class="form-title">Let's Jet! 🧳</h2>
           </header>
           <form class="trip-form" id="trip-form">
             <label for="trip-date-input">Date:</label>
@@ -28,18 +31,15 @@
               name="date"
               required
             />
-            <label
-              for="trip-duration-input"
-              class="trip-duration-input-label"
-            >
+            <label for="trip-duration-input" class="trip-duration-input-label">
               Duration:
             </label>
-
             <input
               class="user-input duration-input"
               id="trip-duration-input"
               type="number"
               name="duration"
+              min="1"
               value=""
               required
             />
@@ -50,6 +50,7 @@
               class="user-input num-trav-input"
               id="num-trav-input"
               type="number"
+              min="1"
               name="number-travelers"
               value=""
               required
@@ -69,7 +70,7 @@
             <datalist id="destinations">
               <option value="Lima, Peru"></option>
               <option value="Stockholm, Sweden"></option>
-              <option value="Sydney, Australia"></option>
+              <option value="Sydney, Austrailia"></option>
               <option value="Cartagena, Colombia"></option>
               <option value="Madrid, Spain"></option>
               <option value="Jakarta, Indonesia"></option>
@@ -123,15 +124,22 @@
             <p class="est-cost">Estimated Cost*: $<span id="estCost"></span></p>
             <p class="cost-disclaimer">*Includes 10% travel agent fee</p>
           </div>
-          <button class="submit-trip" id="submitTrip" type="submit" disabled=true>
-            Submit
+          <button
+            class="submit-trip"
+            id="submitTrip"
+            type="submit"
+            disabled="true"
+          >
+            Submit Trip
           </button>
         </section>
       </div>
     </aside>
     <main class="dashboard">
       <nav class="nav-bar">
-        <h1 class="welcome-greeting">Welcome, <span id="currentUserName">Name</span>!</h1>
+        <h1 class="welcome-greeting">
+          Welcome, <span id="currentUserName">Name</span>!
+        </h1>
       </nav>
       <div class="content-wrapper">
         <header class="trip-header">
@@ -140,27 +148,23 @@
         <section class="grid-container">
           <article class="amt-display display">
             <h2 class="spent-title">Total Amount Spent This Year💸</h2>
-              <p class="total-yearly-cost" id="totalYearlyCost"> </p>
+            <p class="total-yearly-cost" id="totalYearlyCost"></p>
           </article>
           <article class="present-display display">
             <h2 class="display-title">Present⭐</h2>
-              <div class="present-scroll" id="presentScrollContent">
-              </div>
+            <div class="present-scroll" id="presentScrollContent"></div>
           </article>
           <article class="upcoming-display display">
             <h2 class="upcoming-title">Upcoming✈️</h2>
-              <div class="upcoming-scroll" id="upcomingScrollContent">
-              </div>
+            <div class="upcoming-scroll" id="upcomingScrollContent"></div>
           </article>
           <article class="past-display display">
             <h2 class="past-title">Past🗺️</h2>
-            <div class="past-scroll" id="pastScrollContent">
-            </div>
+            <div class="past-scroll" id="pastScrollContent"></div>
           </article>
           <article class="pending-display display">
             <h2 class="pending-title">Pending⏳</h2>
-            <div class="pending-scroll" id="pendingScrollContent">
-            </div>
+            <div class="pending-scroll" id="pendingScrollContent"></div>
           </article>
         </section>
       </div>

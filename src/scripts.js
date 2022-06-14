@@ -1,6 +1,12 @@
 // Project Files
 import './css/styles.css';
-import {allTravelersData, allTripsData, allDestinationsData, fetchData, addTripData} from './apiCalls.js';
+import {
+  allTravelersData,
+  allTripsData,
+  allDestinationsData,
+  fetchData,
+  addTripData,
+} from './apiCalls.js';
 import TravelersRepository from './TravelersRepository.js';
 import Traveler from './Traveler.js';
 import DestinationsRepository from './DestinationsRepository.js';
@@ -9,7 +15,7 @@ import TripsRepository from './TripsRepository.js';
 // Third-Party File
 import dayjs from 'dayjs';
 import isBetween from 'dayjs/plugin/isBetween';
-dayjs.extend(isBetween)
+dayjs.extend(isBetween);
 
 // Query Selectors
 let userName = document.getElementById('currentUserName');
@@ -43,21 +49,22 @@ submitTripButton.addEventListener('click', submitTripForm);
 
 // Promise.all
 Promise.all([allTravelersData, allTripsData, allDestinationsData])
-  .then(data => {
-    const travelersData = data[0].travelers.map(traveler => new Traveler(traveler))
+  .then((data) => {
+    const travelersData = data[0].travelers.map(
+      (traveler) => new Traveler(traveler)
+    );
     instantiateTravelersRepo(travelersData);
     instantiateTripsRepo(data[1].trips);
     instantiateDestinationsRepo(data[2].destinations);
   })
   .catch((error) => {
-    console.error("error", error.message);
-    return alert("Oops! Something went wrong. Please try again later.")
+    console.error('error', error.message);
+    return alert('Oops! Something went wrong. Please try again later.');
   })
   .finally(() => {
     currentTraveler = travelersRepository.getTravelerById(displayedTravelersId);
-    populateDashboard(currentTraveler)
-  })
-
+    populateDashboard(currentTraveler);
+  });
 
 function instantiateTravelersRepo(travelersData) {
   travelersRepository = new TravelersRepository(travelersData);
@@ -74,13 +81,28 @@ function instantiateDestinationsRepo(data) {
 function populateDashboard(currentTraveler) {
   userName.innerText = `${currentTraveler.getTravelerFirstName()}`;
 
-  const allUserPastTrips = tripsRepository.getAllPastTripsForTraveler(displayedTravelersId, currentDate);
-  const allUserPresentTrips = tripsRepository.getAllPresentTripsForTraveler(displayedTravelersId, currentDate);
-  const allUserFutureTrips = tripsRepository.getAllFutureTripsForTraveler(displayedTravelersId, currentDate);
-  const allUserPendingTrips = tripsRepository.getAllPendingTripsForTraveler(displayedTravelersId, currentDate);
-  const allTripsFromLastYear = tripsRepository.getTravelerTripsFromPastYear(displayedTravelersId, currentDate);
+  const allUserPastTrips = tripsRepository.getAllPastTripsForTraveler(
+    displayedTravelersId,
+    currentDate
+  );
+  const allUserPresentTrips = tripsRepository.getAllPresentTripsForTraveler(
+    displayedTravelersId,
+    currentDate
+  );
+  const allUserFutureTrips = tripsRepository.getAllFutureTripsForTraveler(
+    displayedTravelersId,
+    currentDate
+  );
+  const allUserPendingTrips = tripsRepository.getAllPendingTripsForTraveler(
+    displayedTravelersId,
+    currentDate
+  );
+  const allTripsFromLastYear = tripsRepository.getTravelerTripsFromPastYear(
+    displayedTravelersId,
+    currentDate
+  );
 
-  pastScrollContent.innerHTML = parseCardFromData(allUserPastTrips)
+  pastScrollContent.innerHTML = parseCardFromData(allUserPastTrips);
 
   presentScrollContent.innerHTML = parseCardFromData(allUserPresentTrips);
 
@@ -88,16 +110,18 @@ function populateDashboard(currentTraveler) {
 
   pendingScrollContent.innerHTML = parseCardFromData(allUserPendingTrips);
 
-  totalYearlyCost.innerText = `$${getTotalTripCost(allTripsFromLastYear)}`
+  totalYearlyCost.innerText = `$${getTotalTripCost(allTripsFromLastYear)}`;
 }
 
 function parseCardFromData(data) {
   if (!data.length) {
-    return `<p>No trips to display!</p>`
+    return `<p class="no-trips-msg">No trips to display!</p>`;
   }
 
   return data.reduce((acc, trip) => {
-    const destination = destinationsRepository.getDestinationById(trip.destinationID);
+    const destination = destinationsRepository.getDestinationById(
+      trip.destinationID
+    );
     acc += `
       <article class="card">
           <img
@@ -111,42 +135,51 @@ function parseCardFromData(data) {
           </header>
           <p class="date">Date: ${trip.date}</p>
           <p class="duration">Duration: ${trip.duration}</p>
-          <p class="num-travelers">Traveler(s): ${trip.travelers}</p>
+          <p class="num-travelers">Travelers: ${trip.travelers}</p>
           <p class="status">Status: ${trip.status}</p>
         </div>
       </article>
-    `
-    return acc
-  }, ``)
+    `;
+    return acc;
+  }, ``);
 }
 
 function getTotalTripCost(tripData) {
   const totalTripCost = tripData.reduce((totalCost, trip) => {
-    const tripDestination = destinationsRepository.getDestinationById(trip.destinationID);
-    totalCost += (tripDestination.estimatedLodgingCostPerDay * trip.duration) + (tripDestination.estimatedFlightCostPerPerson * trip.travelers);
+    const tripDestination = destinationsRepository.getDestinationById(
+      trip.destinationID
+    );
+    totalCost +=
+      tripDestination.estimatedLodgingCostPerDay * trip.duration +
+      tripDestination.estimatedFlightCostPerPerson * trip.travelers;
     return totalCost;
-  }, 0)
-  const fee = totalTripCost * .10;
+  }, 0);
+  const fee = totalTripCost * 0.1;
   return (totalTripCost + fee).toFixed(2);
 }
 
 function checkFormInputs(e) {
-  const formattedDate = dayjs(tripDateInput.value).format('YYYY/MM/DD')
+  const formattedDate = dayjs(tripDateInput.value).format('YYYY/MM/DD');
   const isValidDate = dayjs(formattedDate).isBefore(currentDate);
 
-  if (!isValidDate &&
+  if (
+    !isValidDate &&
     tripDurationInput.value &&
     tripNumTravelersInput.value &&
-    tripDestinationSelection.value) {
+    tripDestinationSelection.value
+  ) {
     submitTripButton.disabled = false;
-    const getDestinationByLocation = destinationsRepository.destinations.find(destination => destination.destination === tripDestinationSelection.value)
+    const getDestinationByLocation = destinationsRepository.destinations.find(
+      (destination) =>
+        destination.destination === tripDestinationSelection.value
+    );
     const pendingTrip = {
       userID: displayedTravelersId,
       destinationID: getDestinationByLocation.id,
       travelers: Number(tripNumTravelersInput.value),
-      duration: Number(tripDurationInput.value)
-    }
-    estimatedCost.innerText = `${getTotalTripCost([pendingTrip])}`
+      duration: Number(tripDurationInput.value),
+    };
+    estimatedCost.innerText = `${getTotalTripCost([pendingTrip])}`;
   }
 }
 
@@ -155,27 +188,29 @@ function submitTripForm(e) {
   let postTripObject = {
     id: tripsRepository.trips.length + 1,
     userID: displayedTravelersId,
-    destinationID: (destinationsRepository.destinations.find(destination => destination.destination === tripDestinationSelection.value)).id,
+    destinationID: destinationsRepository.destinations.find(
+      (destination) =>
+        destination.destination === tripDestinationSelection.value
+    ).id,
     travelers: Number(tripNumTravelersInput.value),
     date: dayjs(tripDateInput.value).format('YYYY/MM/DD'),
     duration: Number(tripDurationInput.value),
     status: 'pending',
-    suggestedActivities: []
-  }
+    suggestedActivities: [],
+  };
 
   addTripData(postTripObject)
-    .then(object => {
-      fetchData("http://localhost:3001/api/v1/trips")
-        .then(data => {
-          instantiateTripsRepo(data.trips);
-          populateDashboard(currentTraveler);
-        })
+    .then((object) => {
+      fetchData('http://localhost:3001/api/v1/trips').then((data) => {
+        instantiateTripsRepo(data.trips);
+        populateDashboard(currentTraveler);
+      });
     })
-    .catch(error => {
-      console.error("error", error.message);
-      return alert("Oops! Something went wrong. Please try again later.")
-    })
-    tripForm.reset();
-    estimatedCost.innerText = '';
-    submitTripButton.disabled = true;
+    .catch((error) => {
+      console.error('error', error.message);
+      return alert('Oops! Something went wrong. Please try again later.');
+    });
+  tripForm.reset();
+  estimatedCost.innerText = '';
+  submitTripButton.disabled = true;
 }
