@@ -1,12 +1,6 @@
 // Project Files
 import './css/styles.css';
-import {
-  allTravelersData,
-  allTripsData,
-  allDestinationsData,
-  fetchData,
-  addTripData,
-} from './apiCalls.js';
+import {allTravelersData, allTripsData, allDestinationsData, fetchData, addTripData} from './apiCalls.js';
 import TravelersRepository from './TravelersRepository.js';
 import Traveler from './Traveler.js';
 import DestinationsRepository from './DestinationsRepository.js';
@@ -50,9 +44,7 @@ submitTripButton.addEventListener('click', submitTripForm);
 // Promise.all
 Promise.all([allTravelersData, allTripsData, allDestinationsData])
   .then((data) => {
-    const travelersData = data[0].travelers.map(
-      (traveler) => new Traveler(traveler)
-    );
+    const travelersData = data[0].travelers.map((traveler) => new Traveler(traveler));
     instantiateTravelersRepo(travelersData);
     instantiateTripsRepo(data[1].trips);
     instantiateDestinationsRepo(data[2].destinations);
@@ -81,26 +73,11 @@ function instantiateDestinationsRepo(data) {
 function populateDashboard(currentTraveler) {
   userName.innerText = `${currentTraveler.getTravelerFirstName()}`;
 
-  const allUserPastTrips = tripsRepository.getAllPastTripsForTraveler(
-    displayedTravelersId,
-    currentDate
-  );
-  const allUserPresentTrips = tripsRepository.getAllPresentTripsForTraveler(
-    displayedTravelersId,
-    currentDate
-  );
-  const allUserFutureTrips = tripsRepository.getAllFutureTripsForTraveler(
-    displayedTravelersId,
-    currentDate
-  );
-  const allUserPendingTrips = tripsRepository.getAllPendingTripsForTraveler(
-    displayedTravelersId,
-    currentDate
-  );
-  const allTripsFromLastYear = tripsRepository.getTravelerTripsFromPastYear(
-    displayedTravelersId,
-    currentDate
-  );
+  const allUserPastTrips = tripsRepository.getAllPastTripsForTraveler(displayedTravelersId, currentDate);
+  const allUserPresentTrips = tripsRepository.getAllPresentTripsForTraveler(displayedTravelersId, currentDate);
+  const allUserFutureTrips = tripsRepository.getAllFutureTripsForTraveler(displayedTravelersId, currentDate);
+  const allUserPendingTrips = tripsRepository.getAllPendingTripsForTraveler(displayedTravelersId, currentDate);
+  const allTripsFromLastYear = tripsRepository.getTravelerTripsFromPastYear(displayedTravelersId, currentDate);
 
   pastScrollContent.innerHTML = parseCardFromData(allUserPastTrips);
 
@@ -119,9 +96,7 @@ function parseCardFromData(data) {
   }
 
   return data.reduce((acc, trip) => {
-    const destination = destinationsRepository.getDestinationById(
-      trip.destinationID
-    );
+    const destination = destinationsRepository.getDestinationById(trip.destinationID);
     acc += `
       <article class="card">
           <img
@@ -146,12 +121,8 @@ function parseCardFromData(data) {
 
 function getTotalTripCost(tripData) {
   const totalTripCost = tripData.reduce((totalCost, trip) => {
-    const tripDestination = destinationsRepository.getDestinationById(
-      trip.destinationID
-    );
-    totalCost +=
-      tripDestination.estimatedLodgingCostPerDay * trip.duration +
-      tripDestination.estimatedFlightCostPerPerson * trip.travelers;
+    const tripDestination = destinationsRepository.getDestinationById(trip.destinationID);
+    totalCost += (tripDestination.estimatedLodgingCostPerDay * trip.duration) + (tripDestination.estimatedFlightCostPerPerson * trip.travelers);
     return totalCost;
   }, 0);
   const fee = totalTripCost * 0.1;
@@ -162,23 +133,18 @@ function checkFormInputs(e) {
   const formattedDate = dayjs(tripDateInput.value).format('YYYY/MM/DD');
   const isValidDate = dayjs(formattedDate).isBefore(currentDate);
 
-  if (
-    !isValidDate &&
+  if (!isValidDate &&
     tripDurationInput.value &&
     tripNumTravelersInput.value &&
-    tripDestinationSelection.value
-  ) {
+    tripDestinationSelection.value) {
     submitTripButton.disabled = false;
-    const getDestinationByLocation = destinationsRepository.destinations.find(
-      (destination) =>
-        destination.destination === tripDestinationSelection.value
-    );
+    const getDestinationByLocation = destinationsRepository.destinations.find((destination) => destination.destination === tripDestinationSelection.value);
     const pendingTrip = {
       userID: displayedTravelersId,
       destinationID: getDestinationByLocation.id,
       travelers: Number(tripNumTravelersInput.value),
       duration: Number(tripDurationInput.value),
-    };
+    }
     estimatedCost.innerText = `${getTotalTripCost([pendingTrip])}`;
   }
 }
@@ -188,10 +154,7 @@ function submitTripForm(e) {
   let postTripObject = {
     id: tripsRepository.trips.length + 1,
     userID: displayedTravelersId,
-    destinationID: destinationsRepository.destinations.find(
-      (destination) =>
-        destination.destination === tripDestinationSelection.value
-    ).id,
+    destinationID: (destinationsRepository.destinations.find((destination) => destination.destination === tripDestinationSelection.value)).id,
     travelers: Number(tripNumTravelersInput.value),
     date: dayjs(tripDateInput.value).format('YYYY/MM/DD'),
     duration: Number(tripDurationInput.value),
