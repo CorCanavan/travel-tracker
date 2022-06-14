@@ -17,7 +17,7 @@
       <header class="sidebar-header">
         <h1 class="sidebar-title">JetSetter✈️</h1>
       </header>
-      <div class="form-wrapper">
+      <div class="form-wrapper hidden" id="formWrapper">
         <section class="sidebar-form">
           <header class="form-header">
             <h2 class="form-title">Let's Jet! 🧳</h2>
@@ -135,7 +135,37 @@
         </section>
       </div>
     </aside>
-    <main class="dashboard">
+    <main class="login-page" id="loginPage">
+      <section class="user-login">
+        <h1>Welcome to JetSetter✈️</h1>
+        <h3>Please Log-In Below</h3>
+        <form class="login-form" id="login-form">
+          <article class="username-section">
+            <label for="username-input" class="login-input"> Username: </label>
+            <input
+              class="user-input username-input"
+              type="text"
+              id="username-input"
+              name="username-input"
+              required
+            />
+          </article>
+          <article class="password-section">
+            <label for="password-input" class="login-input"> Password: </label>
+            <input
+              class="user-input password-input"
+              id="password-input"
+              type="password"
+              name="password-input"
+              required
+            />
+          </article>
+          <button class="login-button" type="submit" id="loginButton" disabled=true>Submit</button>
+        </form>
+        <p class="login-error" id="loginError"></p>
+      </section>
+    </main>
+    <main class="dashboard hidden" id="dashboard">
       <nav class="nav-bar">
         <h1 class="welcome-greeting">
           Welcome, <span id="currentUserName">Name</span>!
@@ -147,16 +177,24 @@
         </header>
         <section class="grid-container">
           <article class="amt-display display">
-            <h2 class="spent-title">Total Amount Spent This Year💸</h2>
+            <h2 class="spent-title">Total Amount Spent This Past Year💸</h2>
             <p class="total-yearly-cost" id="totalYearlyCost"></p>
           </article>
           <article class="present-display display">
             <h2 class="display-title">Present⭐</h2>
-            <div class="present-scroll" id="presentScrollContent" tabindex="0"></div>
+            <div
+              class="present-scroll"
+              id="presentScrollContent"
+              tabindex="0"
+            ></div>
           </article>
           <article class="upcoming-display display">
             <h2 class="upcoming-title">Upcoming✈️</h2>
-            <div class="upcoming-scroll" id="upcomingScrollContent" tabindex="0"></div>
+            <div
+              class="upcoming-scroll"
+              id="upcomingScrollContent"
+              tabindex="0"
+            ></div>
           </article>
           <article class="past-display display">
             <h2 class="past-title">Past🗺️</h2>
@@ -164,7 +202,11 @@
           </article>
           <article class="pending-display display">
             <h2 class="pending-title">Pending⏳</h2>
-            <div class="pending-scroll" id="pendingScrollContent" tabindex="0"></div>
+            <div
+              class="pending-scroll"
+              id="pendingScrollContent"
+              tabindex="0"
+            ></div>
           </article>
         </section>
       </div>

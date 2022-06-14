@@ -1,12 +1,6 @@
 // Project Files
 import './css/styles.css';
-import {
-  allTravelersData,
-  allTripsData,
-  allDestinationsData,
-  fetchData,
-  addTripData,
-} from './apiCalls.js';
+import {allTravelersData, allTripsData, allDestinationsData, fetchData, addTripData} from './apiCalls.js';
 import TravelersRepository from './TravelersRepository.js';
 import Traveler from './Traveler.js';
 import DestinationsRepository from './DestinationsRepository.js';
@@ -31,6 +25,14 @@ let tripNumTravelersInput = document.getElementById('num-trav-input');
 let tripDestinationSelection = document.getElementById('destination-selection');
 let submitTripButton = document.getElementById('submitTrip');
 let estimatedCost = document.getElementById('estCost');
+let dashboard = document.getElementById('dashboard');
+let tripFormWrapper = document.getElementById('formWrapper');
+let loginPage = document.getElementById('loginPage');
+let loginForm = document.getElementById('login-form');
+let usernameInput = document.getElementById('username-input');
+let passwordInput = document.getElementById('password-input');
+let loginButton = document.getElementById('loginButton');
+let loginError = document.getElementById('loginError');
 
 // Global Variables
 let currentTraveler;
@@ -38,7 +40,8 @@ let travelersRepository;
 let tripsRepository;
 let destinationsRepository;
 let currentDate = dayjs().format('YYYY/MM/DD');
-let displayedTravelersId = Math.floor(Math.random() * 49) + 1;
+let displayedTravelersId;
+// = Math.floor(Math.random() * 49) + 1;
 
 // Event Listeners
 tripDateInput.addEventListener('input', checkFormInputs);
@@ -46,13 +49,60 @@ tripDurationInput.addEventListener('input', checkFormInputs);
 tripNumTravelersInput.addEventListener('input', checkFormInputs);
 tripDestinationSelection.addEventListener('input', checkFormInputs);
 submitTripButton.addEventListener('click', submitTripForm);
+usernameInput.addEventListener('input', checkLoginInputs);
+passwordInput.addEventListener('input', checkLoginInputs);
+loginButton.addEventListener('click', submitLoginForm)
+
+// User login Page
+function checkLoginInputs(e) {
+  if (usernameInput.value && passwordInput.value) {
+    loginButton.disabled = false;
+  }
+}
+
+function submitLoginForm(e) {
+  e.preventDefault();
+  let username = usernameInput.value;
+  let password = passwordInput.value;
+
+  if (checkUsername(username) && checkPassword(password)) {
+    fetchData(`http://localhost:3001/api/v1/travelers/${displayedTravelersId}`)
+      .then((data) => {
+        currentTraveler = new Traveler(data);
+        populateDashboard(currentTraveler);
+        dashboard.classList.remove('hidden');
+        tripFormWrapper.classList.remove('hidden');
+        loginPage.classList.add('hidden')
+    })
+  } else {
+    loginError.innerText = "Incorrect information entered. Please try again."
+    loginForm.reset();
+    loginButton.disabled = true;
+  }
+}
+
+function checkUsername(username) {
+  let textCheck = username.substring(0, 7);
+  let numCheck = username.substring(8);
+
+  if (!textCheck === 'traveler' || Number(numCheck) > travelersRepository.travelers.length) {
+    return false;
+  } else {
+    displayedTravelersId = Number(numCheck);
+    return displayedTravelersId;
+  }
+}
+
+function checkPassword(password) {
+  if (password === 'traveler') {
+    return true;
+  }
+}
 
 // Promise.all
 Promise.all([allTravelersData, allTripsData, allDestinationsData])
   .then((data) => {
-    const travelersData = data[0].travelers.map(
-      (traveler) => new Traveler(traveler)
-    );
+    const travelersData = data[0].travelers.map((traveler) => new Traveler(traveler));
     instantiateTravelersRepo(travelersData);
     instantiateTripsRepo(data[1].trips);
     instantiateDestinationsRepo(data[2].destinations);
@@ -61,10 +111,10 @@ Promise.all([allTravelersData, allTripsData, allDestinationsData])
     console.error('error', error.message);
     return alert('Oops! Something went wrong. Please try again later.');
   })
-  .finally(() => {
-    currentTraveler = travelersRepository.getTravelerById(displayedTravelersId);
-    populateDashboard(currentTraveler);
-  });
+  // .finally(() => {
+  //   currentTraveler = travelersRepository.getTravelerById(displayedTravelersId);
+  //   populateDashboard(currentTraveler);
+  // });
 
 function instantiateTravelersRepo(travelersData) {
   travelersRepository = new TravelersRepository(travelersData);
@@ -81,26 +131,11 @@ function instantiateDestinationsRepo(data) {
 function populateDashboard(currentTraveler) {
   userName.innerText = `${currentTraveler.getTravelerFirstName()}`;
 
-  const allUserPastTrips = tripsRepository.getAllPastTripsForTraveler(
-    displayedTravelersId,
-    currentDate
-  );
-  const allUserPresentTrips = tripsRepository.getAllPresentTripsForTraveler(
-    displayedTravelersId,
-    currentDate
-  );
-  const allUserFutureTrips = tripsRepository.getAllFutureTripsForTraveler(
-    displayedTravelersId,
-    currentDate
-  );
-  const allUserPendingTrips = tripsRepository.getAllPendingTripsForTraveler(
-    displayedTravelersId,
-    currentDate
-  );
-  const allTripsFromLastYear = tripsRepository.getTravelerTripsFromPastYear(
-    displayedTravelersId,
-    currentDate
-  );
+  const allUserPastTrips = tripsRepository.getAllPastTripsForTraveler(displayedTravelersId, currentDate);
+  const allUserPresentTrips = tripsRepository.getAllPresentTripsForTraveler(displayedTravelersId, currentDate);
+  const allUserFutureTrips = tripsRepository.getAllFutureTripsForTraveler(displayedTravelersId, currentDate);
+  const allUserPendingTrips = tripsRepository.getAllPendingTripsForTraveler(displayedTravelersId, currentDate);
+  const allTripsFromLastYear = tripsRepository.getTravelerTripsFromPastYear(displayedTravelersId, currentDate);
 
   pastScrollContent.innerHTML = parseCardFromData(allUserPastTrips);
 
@@ -119,9 +154,7 @@ function parseCardFromData(data) {
   }
 
   return data.reduce((acc, trip) => {
-    const destination = destinationsRepository.getDestinationById(
-      trip.destinationID
-    );
+    const destination = destinationsRepository.getDestinationById(trip.destinationID);
     acc += `
       <article class="card">
           <img
@@ -146,12 +179,8 @@ function parseCardFromData(data) {
 
 function getTotalTripCost(tripData) {
   const totalTripCost = tripData.reduce((totalCost, trip) => {
-    const tripDestination = destinationsRepository.getDestinationById(
-      trip.destinationID
-    );
-    totalCost +=
-      tripDestination.estimatedLodgingCostPerDay * trip.duration +
-      tripDestination.estimatedFlightCostPerPerson * trip.travelers;
+    const tripDestination = destinationsRepository.getDestinationById(trip.destinationID);
+    totalCost += (tripDestination.estimatedLodgingCostPerDay * trip.duration) + (tripDestination.estimatedFlightCostPerPerson * trip.travelers);
     return totalCost;
   }, 0);
   const fee = totalTripCost * 0.1;
@@ -162,23 +191,18 @@ function checkFormInputs(e) {
   const formattedDate = dayjs(tripDateInput.value).format('YYYY/MM/DD');
   const isValidDate = dayjs(formattedDate).isBefore(currentDate);
 
-  if (
-    !isValidDate &&
+  if (!isValidDate &&
     tripDurationInput.value &&
     tripNumTravelersInput.value &&
-    tripDestinationSelection.value
-  ) {
+    tripDestinationSelection.value) {
     submitTripButton.disabled = false;
-    const getDestinationByLocation = destinationsRepository.destinations.find(
-      (destination) =>
-        destination.destination === tripDestinationSelection.value
-    );
+    const getDestinationByLocation = destinationsRepository.destinations.find((destination) => destination.destination === tripDestinationSelection.value);
     const pendingTrip = {
       userID: displayedTravelersId,
       destinationID: getDestinationByLocation.id,
       travelers: Number(tripNumTravelersInput.value),
       duration: Number(tripDurationInput.value),
-    };
+    }
     estimatedCost.innerText = `${getTotalTripCost([pendingTrip])}`;
   }
 }
@@ -188,10 +212,7 @@ function submitTripForm(e) {
   let postTripObject = {
     id: tripsRepository.trips.length + 1,
     userID: displayedTravelersId,
-    destinationID: destinationsRepository.destinations.find(
-      (destination) =>
-        destination.destination === tripDestinationSelection.value
-    ).id,
+    destinationID: (destinationsRepository.destinations.find((destination) => destination.destination === tripDestinationSelection.value)).id,
     travelers: Number(tripNumTravelersInput.value),
     date: dayjs(tripDateInput.value).format('YYYY/MM/DD'),
     duration: Number(tripDurationInput.value),
