@@ -25,6 +25,9 @@ let tripNumTravelersInput = document.getElementById('num-trav-input');
 let tripDestinationSelection = document.getElementById('destination-selection');
 let submitTripButton = document.getElementById('submitTrip');
 let estimatedCost = document.getElementById('estCost');
+let dashboard = document.getElementById('dashboard');
+let tripFormWrapper = document.getElementById('formWrapper');
+let loginPage = document.getElementById('loginPage');
 
 // Global Variables
 let currentTraveler;
