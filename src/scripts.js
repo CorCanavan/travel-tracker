@@ -11,7 +11,7 @@ import dayjs from 'dayjs';
 import isBetween from 'dayjs/plugin/isBetween';
 dayjs.extend(isBetween)
 
-//Query Selectors:
+// Query Selectors
 let userName = document.getElementById('currentUserName');
 let pastScrollContent = document.getElementById('pastScrollContent');
 let upcomingScrollContent = document.getElementById('upcomingScrollContent');
@@ -26,72 +26,22 @@ let tripDestinationSelection = document.getElementById('destination-selection');
 let submitTripButton = document.getElementById('submitTrip');
 let estimatedCost = document.getElementById('estCost');
 
-// Global Variables:
+// Global Variables
 let currentTraveler;
 let travelersRepository;
 let tripsRepository;
 let destinationsRepository;
 let currentDate = dayjs().format('YYYY/MM/DD');
-
 let displayedTravelersId = Math.floor(Math.random() * 49) + 1;
-console.log("id", displayedTravelersId);
 
-//Event Listeners:
+// Event Listeners
 tripDateInput.addEventListener('input', checkFormInputs);
 tripDurationInput.addEventListener('input', checkFormInputs);
 tripNumTravelersInput.addEventListener('input', checkFormInputs);
 tripDestinationSelection.addEventListener('input', checkFormInputs);
 submitTripButton.addEventListener('click', submitTripForm);
 
-function checkFormInputs(e) {
-  const formattedDate = dayjs(tripDateInput.value).format('YYYY/MM/DD')
-  const isValidDate = dayjs(formattedDate).isBefore(currentDate);
-
-  if (!isValidDate &&
-    tripDurationInput.value &&
-    tripNumTravelersInput.value &&
-    tripDestinationSelection.value) {
-    submitTripButton.disabled = false;
-    const getDestinationByLocation = destinationsRepository.destinations.find(destination => destination.destination === tripDestinationSelection.value)
-    console.log("test", getDestinationByLocation);
-    const pendingTrip = {
-      userID: displayedTravelersId,
-      destinationID: getDestinationByLocation.id,
-      travelers: Number(tripNumTravelersInput.value),
-      duration: Number(tripDurationInput.value)
-    }
-    console.log(pendingTrip, "pendingTrip");
-    estimatedCost.innerText = `${getTotalTripCost([pendingTrip])}`
-  }
-}
-
-function submitTripForm(e) {
-  console.log("e", e);
-  e.preventDefault();
-  let postTripObject = {
-    id: tripsRepository.trips.length + 1,
-    userID: displayedTravelersId,
-    destinationID: (destinationsRepository.destinations.find(destination => destination.destination === tripDestinationSelection.value)).id,
-    travelers: Number(tripNumTravelersInput.value),
-    date: dayjs(tripDateInput.value).format('YYYY/MM/DD'),
-    duration: Number(tripDurationInput.value),
-    status: 'pending',
-    suggestedActivities: []
-  }
-
-  addTripData(postTripObject)
-    .then(object => {
-      fetchData("http://localhost:3001/api/v1/trips").then(data => {
-        instantiateTripsRepo(data.trips);
-        populateDashboard(currentTraveler);
-      })
-    })
-    tripForm.reset();
-    estimatedCost.innerText = '';
-    submitTripButton.disabled = true;
-  }
-
-//Promise.all
+// Promise.all
 Promise.all([allTravelersData, allTripsData, allDestinationsData])
   .then(data => {
     const travelersData = data[0].travelers.map(traveler => new Traveler(traveler))
@@ -100,8 +50,8 @@ Promise.all([allTravelersData, allTripsData, allDestinationsData])
     instantiateDestinationsRepo(data[2].destinations);
   })
   .catch((error) => {
-    console.error("error", error);
-    alert("Oops something went wrong. Try again later.")
+    console.error("error", error.message);
+    return alert("Oops! Something went wrong. Please try again later.")
   })
   .finally(() => {
     currentTraveler = travelersRepository.getTravelerById(displayedTravelersId);
@@ -170,9 +120,6 @@ function parseCardFromData(data) {
   }, ``)
 }
 
-// const travelerTripsFromPastYear = tripsRepository.getTravelerTripsFromPastYear(displayedTravelersId, currentDate);
-//
-
 function getTotalTripCost(tripData) {
   const totalTripCost = tripData.reduce((totalCost, trip) => {
     const tripDestination = destinationsRepository.getDestinationById(trip.destinationID);
@@ -181,4 +128,54 @@ function getTotalTripCost(tripData) {
   }, 0)
   const fee = totalTripCost * .10;
   return (totalTripCost + fee).toFixed(2);
+}
+
+function checkFormInputs(e) {
+  const formattedDate = dayjs(tripDateInput.value).format('YYYY/MM/DD')
+  const isValidDate = dayjs(formattedDate).isBefore(currentDate);
+
+  if (!isValidDate &&
+    tripDurationInput.value &&
+    tripNumTravelersInput.value &&
+    tripDestinationSelection.value) {
+    submitTripButton.disabled = false;
+    const getDestinationByLocation = destinationsRepository.destinations.find(destination => destination.destination === tripDestinationSelection.value)
+    const pendingTrip = {
+      userID: displayedTravelersId,
+      destinationID: getDestinationByLocation.id,
+      travelers: Number(tripNumTravelersInput.value),
+      duration: Number(tripDurationInput.value)
+    }
+    estimatedCost.innerText = `${getTotalTripCost([pendingTrip])}`
+  }
+}
+
+function submitTripForm(e) {
+  e.preventDefault();
+  let postTripObject = {
+    id: tripsRepository.trips.length + 1,
+    userID: displayedTravelersId,
+    destinationID: (destinationsRepository.destinations.find(destination => destination.destination === tripDestinationSelection.value)).id,
+    travelers: Number(tripNumTravelersInput.value),
+    date: dayjs(tripDateInput.value).format('YYYY/MM/DD'),
+    duration: Number(tripDurationInput.value),
+    status: 'pending',
+    suggestedActivities: []
+  }
+
+  addTripData(postTripObject)
+    .then(object => {
+      fetchData("http://localhost:3001/api/v1/trips")
+        .then(data => {
+          instantiateTripsRepo(data.trips);
+          populateDashboard(currentTraveler);
+        })
+    })
+    .catch(error => {
+      console.error("error", error.message);
+      return alert("Oops! Something went wrong. Please try again later.")
+    })
+    tripForm.reset();
+    estimatedCost.innerText = '';
+    submitTripButton.disabled = true;
 }

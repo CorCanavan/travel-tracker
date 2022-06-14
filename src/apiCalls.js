@@ -15,20 +15,8 @@ const addTripData = (postTripObject) => {
     method: "POST",
     headers: {"Content-Type": "application/json"},
     body: JSON.stringify(postTripObject)
-  }).then(response => response.json());
+  })
+  .then(response => response.json());
 }
 
-// const addTripData = (url, params) => {
-//   return fetch(url,
-//     {
-//         headers: {
-//           'Content-Type': 'application/json'
-//         },
-//         method: "POST",
-//         body: JSON.stringify(params)
-//     })
-//     .then(function(res){ console.log(res) })
-//     .catch(function(res){ console.log(res) })
-//   )
-// }
 export {allTravelersData, allTripsData, allDestinationsData, fetchData, addTripData}
