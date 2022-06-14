@@ -53,6 +53,7 @@ usernameInput.addEventListener('input', checkLoginInputs);
 passwordInput.addEventListener('input', checkLoginInputs);
 loginButton.addEventListener('click', submitLoginForm)
 
+// User login Page
 function checkLoginInputs(e) {
   if (usernameInput.value && passwordInput.value) {
     loginButton.disabled = false;
