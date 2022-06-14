@@ -22,9 +22,20 @@ body {
 
 .display {
   background-color: #f2f79e;
-  padding: 5px;
+  padding: 10px;
   border-radius: 10px;
   overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.upcoming-title,
+.display-title,
+.past-title,
+.pending-title,
+.spent-title {
+  padding-bottom: 5px;
 }
 
 .sidebar {
@@ -44,13 +55,11 @@ body {
   height: 80%;
   display: flex;
   align-items: center;
-  /* border: 1px solid red; */
 }
 
 .sidebar-form {
   margin: 10px;
   height: 320px;
-  /* border: 1px solid orange; */
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -126,6 +135,18 @@ form > label {
   grid-template-rows: 100px 250px 250px;
   grid-row-gap: 30px;
   grid-column-gap: 35px;
+}
+
+.total-yearly-cost {
+  font-family: 'Kdam Thmor Pro', sans-serif;
+  font-size: x-large;
+  justify-content: center;
+}
+
+.no-trips-msg {
+  font-family: 'Kdam Thmor Pro', sans-serif;
+  font-size: medium;
+  font-style: italic;
 }
 
 .present-display {
