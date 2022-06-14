@@ -36,6 +36,10 @@ body {
   align-items: center;
 }
 
+.sidebar-title {
+  padding-top: 5px;
+}
+
 .form-wrapper {
   height: 80%;
   display: flex;
@@ -92,13 +96,17 @@ form > label {
   border-radius: 5px;
 }
 
+.welcome-greeting {
+  padding: 10px 0px 0px 10px;
+}
+
 .dashboard {
   background-color: #a8d4ad;
   width: 100%;
 }
 
 .content-wrapper {
-  padding-left: 20px;
+  padding-left: 35px;
   display: flex;
   flex-direction: column;
   height: 100%;
@@ -114,10 +122,10 @@ form > label {
 .grid-container {
   display: grid;
   position: relative;
-  grid-template-columns: 370px 370px;
-  grid-template-rows: 100px 230px 230px;
-  grid-row-gap: 25px;
-  grid-column-gap: 20px;
+  grid-template-columns: 400px 400px;
+  grid-template-rows: 100px 250px 250px;
+  grid-row-gap: 30px;
+  grid-column-gap: 35px;
 }
 
 .present-display {
@@ -132,7 +140,7 @@ form > label {
 
 .amt-display {
   grid-row: 1;
-  grid-column: 1/ span 2;
+  grid-column: 1 / span 2;
 }
 
 .past-display {
