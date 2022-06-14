@@ -13,6 +13,7 @@ body {
   height: 100%;
 }
 
+.est-cost,
 .sidebar-title,
 .form-title,
 .your-trips {
@@ -38,12 +39,17 @@ body {
 .form-wrapper {
   height: 80%;
   display: flex;
-  align-items: flex-end;
+  align-items: center;
+  /* border: 1px solid red; */
 }
 
 .sidebar-form {
   margin: 10px;
-  height: 300px;
+  height: 320px;
+  /* border: 1px solid orange; */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 form > label {
@@ -52,12 +58,38 @@ form > label {
   grid-column: 1;
 }
 
+.cost-disclaimer {
+  font-style: italic;
+}
+
 .trip-form {
   display: grid;
   grid-template-columns: 100px, 100px;
   grid-template-rows: 50px, 50px, 50px, 50px;
-  /* grid-gap: 5px;
-  padding: 15px; */
+}
+
+.user-input:hover {
+  cursor: pointer;
+}
+
+.submit-trip:disabled {
+  cursor: disabled;
+}
+
+.submit-trip:enabled {
+  background-color: #967d69;
+  color: #f2f79e;
+}
+
+.submit-trip:hover:enabled {
+  cursor: pointer;
+}
+
+.submit-trip {
+  font-family: 'Kdam Thmor Pro', sans-serif;
+  font-size: large;
+  height: 30px;
+  border-radius: 5px;
 }
 
 .dashboard {
@@ -108,11 +140,6 @@ form > label {
   grid-column: 1;
 }
 
-/* .card-placeholder {
-  display: flex;
-  justify-content: center;
-} */
-
 .card {
   border-radius: 5px;
   border: 1px solid black;
@@ -138,7 +165,6 @@ form > label {
   overflow-x: scroll;
   position: relative;
 }
-
 
 .bottom-card {
   width: 100%;
