@@ -139,7 +139,7 @@
       <section class="user-login">
         <h1>Welcome to JetSetter✈️</h1>
         <h3>Please Log-In Below</h3>
-        <form class="login-form">
+        <form class="login-form" id="login-form">
           <article class="username-section">
             <label for="username-input" class="login-input"> Username: </label>
             <input
@@ -160,8 +160,9 @@
               required
             />
           </article>
-          <button class="login-button" type="submit">Submit</button>
+          <button class="login-button" type="submit" id="loginButton" disabled=true>Submit</button>
         </form>
+        <p class="login-error" id="loginError"></p>
       </section>
     </main>
     <main class="dashboard hidden" id="dashboard">

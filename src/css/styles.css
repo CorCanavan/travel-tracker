@@ -172,7 +172,7 @@ body {
 
 .card {
   border-radius: 5px;
-  /* border: 1px solid black; */
+  border: 1px solid black;
   display: flex;
   width: 100%;
   min-width: 300px;

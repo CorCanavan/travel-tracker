@@ -28,6 +28,11 @@ let estimatedCost = document.getElementById('estCost');
 let dashboard = document.getElementById('dashboard');
 let tripFormWrapper = document.getElementById('formWrapper');
 let loginPage = document.getElementById('loginPage');
+let loginForm = document.getElementById('login-form');
+let usernameInput = document.getElementById('username-input');
+let passwordInput = document.getElementById('password-input');
+let loginButton = document.getElementById('loginButton');
+let loginError = document.getElementById('loginError');
 
 // Global Variables
 let currentTraveler;
@@ -43,6 +48,48 @@ tripDurationInput.addEventListener('input', checkFormInputs);
 tripNumTravelersInput.addEventListener('input', checkFormInputs);
 tripDestinationSelection.addEventListener('input', checkFormInputs);
 submitTripButton.addEventListener('click', submitTripForm);
+usernameInput.addEventListener('input', checkLoginInputs);
+passwordInput.addEventListener('input', checkLoginInputs);
+loginButton.addEventListener('click', submitLoginForm)
+
+function checkLoginInputs(e) {
+  if (usernameInput.value && passwordInput.value) {
+    loginButton.disabled = false;
+  }
+}
+
+function submitLoginForm(e) {
+  e.preventDefault();
+  let username = usernameInput.value;
+  let password = passwordInput.value;
+
+  if (username.includes('traveler')) {
+    username = username.split('traveler')
+    console.log("username", username);
+    // return revisedUN
+  } else {
+    loginError.innerText = `Username is incorrect.`
+  }
+
+  if (Number(username[1]) <= travelersRepository.travelers.length) {
+    console.log("rUN", username[1]);
+    displayedTravelersId = Number(username[1]);
+    console.log("DID", displayedTravelersId)
+  }
+  
+  if (password !== 'traveler') {
+    loginError.innerText = `Password is incorrect.`
+  } else {
+    fetchData(`http://localhost:3001/api/v1/travelers/${displayedTravelersId}`)
+      .then((data) => {
+        currentTraveler = new Traveler(data);
+        populateDashboard(currentTraveler);
+        dashboard.classList.remove('hidden');
+        tripFormWrapper.classList.remove('hidden');
+        loginPage.classList.add('hidden')
+    });
+  }
+}
 
 // Promise.all
 Promise.all([allTravelersData, allTripsData, allDestinationsData])
