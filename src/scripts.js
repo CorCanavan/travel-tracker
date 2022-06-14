@@ -111,10 +111,10 @@ Promise.all([allTravelersData, allTripsData, allDestinationsData])
     console.error('error', error.message);
     return alert('Oops! Something went wrong. Please try again later.');
   })
-  .finally(() => {
-    currentTraveler = travelersRepository.getTravelerById(displayedTravelersId);
-    populateDashboard(currentTraveler);
-  });
+  // .finally(() => {
+  //   currentTraveler = travelersRepository.getTravelerById(displayedTravelersId);
+  //   populateDashboard(currentTraveler);
+  // });
 
 function instantiateTravelersRepo(travelersData) {
   travelersRepository = new TravelersRepository(travelersData);
