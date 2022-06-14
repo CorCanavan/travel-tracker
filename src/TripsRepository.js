@@ -28,7 +28,9 @@ class TripsRepository {
 
   getAllFutureTripsForTraveler(travelerId, currentDate) {
     const allTripsForTraveler = this.getAllTripsByUserID(travelerId);
-    const futureTripsForTraveler = allTripsForTraveler.filter(trip => dayjs(trip.date).isAfter(dayjs(currentDate)));
+    const futureTripsForTraveler = allTripsForTraveler
+      .filter(trip => dayjs(trip.date).isAfter(dayjs(currentDate)))
+      .filter(trip => trip.status === 'approved');
     return futureTripsForTraveler;
   }
 
