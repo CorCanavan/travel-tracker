@@ -40,7 +40,8 @@ let travelersRepository;
 let tripsRepository;
 let destinationsRepository;
 let currentDate = dayjs().format('YYYY/MM/DD');
-let displayedTravelersId = Math.floor(Math.random() * 49) + 1;
+let displayedTravelersId;
+// = Math.floor(Math.random() * 49) + 1;
 
 // Event Listeners
 tripDateInput.addEventListener('input', checkFormInputs);
@@ -63,20 +64,6 @@ function submitLoginForm(e) {
   let username = usernameInput.value;
   let password = passwordInput.value;
 
-  // if (username.includes('traveler')) {
-  //   username = username.split('traveler')
-  //   console.log("username", username);
-  //   // return revisedUN
-  // } else {
-  //   loginError.innerText = `Username is incorrect.`
-  // }
-  //
-  // if (Number(username[1]) <= travelersRepository.travelers.length) {
-  //   console.log("rUN", username[1]);
-  //   displayedTravelersId = Number(username[1]);
-  //   console.log("DID", displayedTravelersId)
-  // }
-
   if (checkUsername(username) && checkPassword(password)) {
     fetchData(`http://localhost:3001/api/v1/travelers/${displayedTravelersId}`)
       .then((data) => {
@@ -85,23 +72,12 @@ function submitLoginForm(e) {
         dashboard.classList.remove('hidden');
         tripFormWrapper.classList.remove('hidden');
         loginPage.classList.add('hidden')
-    });
+    })
   } else {
-    loginError.innerText = "Incorrect log-in information. Please try again."
+    loginError.innerText = "Incorrect information entered. Please try again."
+    loginForm.reset();
+    loginButton.disabled = true;
   }
-
-  // if (password !== 'traveler') {
-  //   loginError.innerText = `Password is incorrect.`
-  // } else {
-  //   fetchData(`http://localhost:3001/api/v1/travelers/${displayedTravelersId}`)
-  //     .then((data) => {
-  //       currentTraveler = new Traveler(data);
-  //       populateDashboard(currentTraveler);
-  //       dashboard.classList.remove('hidden');
-  //       tripFormWrapper.classList.remove('hidden');
-  //       loginPage.classList.add('hidden')
-  //   });
-  // }
 }
 
 function checkUsername(username) {
@@ -110,20 +86,10 @@ function checkUsername(username) {
 
   if (!textCheck === 'traveler' || Number(numCheck) > travelersRepository.travelers.length) {
     return false;
-    // username = username.split('traveler')
-    // console.log("username", username);
-    // return revisedUN
   } else {
     displayedTravelersId = Number(numCheck);
     return displayedTravelersId;
-    // loginError.innerText = `Username is incorrect.`
   }
-
-  // if (Number(username[1]) <= travelersRepository.travelers.length) {
-  //   console.log("rUN", username[1]);
-  //   displayedTravelersId = Number(username[1]);
-  //   console.log("DID", displayedTravelersId)
-  // }
 }
 
 function checkPassword(password) {
@@ -131,6 +97,7 @@ function checkPassword(password) {
     return true;
   }
 }
+
 // Promise.all
 Promise.all([allTravelersData, allTripsData, allDestinationsData])
   .then((data) => {
