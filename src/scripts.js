@@ -41,7 +41,6 @@ let tripsRepository;
 let destinationsRepository;
 let currentDate = dayjs().format('YYYY/MM/DD');
 let displayedTravelersId;
-// = Math.floor(Math.random() * 49) + 1;
 
 // Event Listeners
 tripDateInput.addEventListener('input', checkFormInputs);
@@ -51,7 +50,7 @@ tripDestinationSelection.addEventListener('input', checkFormInputs);
 submitTripButton.addEventListener('click', submitTripForm);
 usernameInput.addEventListener('input', checkLoginInputs);
 passwordInput.addEventListener('input', checkLoginInputs);
-loginButton.addEventListener('click', submitLoginForm)
+loginButton.addEventListener('click', submitLoginForm);
 
 // User login Page
 function checkLoginInputs(e) {
@@ -72,7 +71,7 @@ function submitLoginForm(e) {
         populateDashboard(currentTraveler);
         dashboard.classList.remove('hidden');
         tripFormWrapper.classList.remove('hidden');
-        loginPage.classList.add('hidden')
+        loginPage.classList.add('hidden');
     })
   } else {
     loginError.innerText = "Incorrect information entered. Please try again."
