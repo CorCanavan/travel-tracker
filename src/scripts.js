@@ -52,51 +52,6 @@ usernameInput.addEventListener('input', checkLoginInputs);
 passwordInput.addEventListener('input', checkLoginInputs);
 loginButton.addEventListener('click', submitLoginForm);
 
-// User login Page
-function checkLoginInputs(e) {
-  if (usernameInput.value && passwordInput.value) {
-    loginButton.disabled = false;
-  }
-}
-
-function submitLoginForm(e) {
-  e.preventDefault();
-  let username = usernameInput.value;
-  let password = passwordInput.value;
-
-  if (checkUsername(username) && checkPassword(password)) {
-    fetchData(`http://localhost:3001/api/v1/travelers/${displayedTravelersId}`)
-      .then((data) => {
-        currentTraveler = new Traveler(data);
-        populateDashboard(currentTraveler);
-        dashboard.classList.remove('hidden');
-        tripFormWrapper.classList.remove('hidden');
-        loginPage.classList.add('hidden');
-    })
-  } else {
-    loginError.innerText = "Incorrect information entered. Please try again."
-    loginForm.reset();
-    loginButton.disabled = true;
-  }
-}
-
-function checkUsername(username) {
-  let textCheck = username.substring(0, 7);
-  let numCheck = username.substring(8);
-
-  if (!textCheck === 'traveler' || Number(numCheck) > travelersRepository.travelers.length) {
-    return false;
-  } else {
-    displayedTravelersId = Number(numCheck);
-    return displayedTravelersId;
-  }
-}
-
-function checkPassword(password) {
-  if (password === 'traveler') {
-    return true;
-  }
-}
 
 // Promise.all
 Promise.all([allTravelersData, allTripsData, allDestinationsData])
@@ -109,8 +64,7 @@ Promise.all([allTravelersData, allTripsData, allDestinationsData])
   .catch((error) => {
     console.error('error', error.message);
     return alert('Oops! Something went wrong. Please try again later.');
-  })
-
+  });
 
 function instantiateTravelersRepo(travelersData) {
   travelersRepository = new TravelersRepository(travelersData);
@@ -124,6 +78,7 @@ function instantiateDestinationsRepo(data) {
   destinationsRepository = new DestinationsRepository(data);
 }
 
+// DOM
 function populateDashboard(currentTraveler) {
   userName.innerText = `${currentTraveler.getTravelerFirstName()}`;
 
@@ -183,6 +138,7 @@ function getTotalTripCost(tripData) {
   return (totalTripCost + fee).toFixed(2);
 }
 
+// Trip Request Form
 function checkFormInputs(e) {
   const formattedDate = dayjs(tripDateInput.value).format('YYYY/MM/DD');
   const isValidDate = dayjs(formattedDate).isBefore(currentDate);
@@ -198,7 +154,7 @@ function checkFormInputs(e) {
       destinationID: getDestinationByLocation.id,
       travelers: Number(tripNumTravelersInput.value),
       duration: Number(tripDurationInput.value),
-    }
+    };
     estimatedCost.innerText = `${getTotalTripCost([pendingTrip])}`;
   }
 }
@@ -231,3 +187,53 @@ function submitTripForm(e) {
   estimatedCost.innerText = '';
   submitTripButton.disabled = true;
 }
+
+// User login
+function checkLoginInputs(e) {
+  if (usernameInput.value && passwordInput.value) {
+    loginButton.disabled = false;
+  }
+}
+
+function submitLoginForm(e) {
+  e.preventDefault();
+  let username = usernameInput.value;
+  let password = passwordInput.value;
+
+  if (checkUsername(username) && checkPassword(password)) {
+    fetchData(`http://localhost:3001/api/v1/travelers/${displayedTravelersId}`)
+      .then((data) => {
+        currentTraveler = new Traveler(data);
+        populateDashboard(currentTraveler);
+        dashboard.classList.remove('hidden');
+        tripFormWrapper.classList.remove('hidden');
+        loginPage.classList.add('hidden');
+      })
+      .catch((error) => {
+        console.error('error', error.message);
+        return alert('Oops! Something went wrong. Please try again later.');
+      });
+    } else {
+      loginError.innerText = "Incorrect information entered. Please try again.";
+      loginForm.reset();
+      loginButton.disabled = true;
+    }
+  }
+
+  function checkUsername(username) {
+    let textCheck = username.substring(0, 7);
+    let numCheck = username.substring(8);
+
+    if (!textCheck === 'traveler' || Number(numCheck) > travelersRepository.travelers.length) {
+      return false;
+    } else {
+      displayedTravelersId = Number(numCheck);
+      return displayedTravelersId;
+    }
+  }
+
+  function checkPassword(password) {
+    if (password === 'traveler') {
+      return true;
+    }
+  }
