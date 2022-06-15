@@ -12,11 +12,7 @@ JetSetter is a travel application that gets you set to jet! This app allows user
 - TDD
 
 ## Illustration
-Traveler Login Page
-<img width="1435" alt="Screen Shot 2022-06-14 at 8 32 49 PM" src="https://user-images.githubusercontent.com/97919748/173724409-6dcb27c7-910a-4c03-916a-bca71d7f745a.png">
-
-Traveler Dashboard Display
-<img width="1439" alt="Screen Shot 2022-06-14 at 8 33 38 PM" src="https://user-images.githubusercontent.com/97919748/173724414-8b4ba488-a059-43f3-ab2a-85d6e5a3e98e.png">
+https://user-images.githubusercontent.com/97919748/173928946-2f77f9be-cd18-4984-9bd8-3c6e8c8bdb32.mov
 
 ## GitHub Link
 
@@ -37,3 +33,8 @@ Traveler Dashboard Display
 
 - [Corinne Canavan](https://github.com/CorCanavan)
   - [LinkedIn](https://www.linkedin.com/in/corinnecanavan/)
+
+
+## Project Specs
+
+- The spec for this project can be found [here](https://frontend.turing.edu/projects/travel-tracker.html).
