@@ -52,7 +52,6 @@ usernameInput.addEventListener('input', checkLoginInputs);
 passwordInput.addEventListener('input', checkLoginInputs);
 loginButton.addEventListener('click', submitLoginForm);
 
-
 // Promise.all
 Promise.all([allTravelersData, allTripsData, allDestinationsData])
   .then((data) => {
@@ -220,20 +219,20 @@ function submitLoginForm(e) {
     }
   }
 
-  function checkUsername(username) {
-    let textCheck = username.substring(0, 7);
-    let numCheck = username.substring(8);
+function checkUsername(username) {
+  let textCheck = username.substring(0, 7);
+  let numCheck = username.substring(8);
 
-    if (!textCheck === 'traveler' || Number(numCheck) > travelersRepository.travelers.length) {
-      return false;
-    } else {
-      displayedTravelersId = Number(numCheck);
-      return displayedTravelersId;
-    }
+  if (!textCheck === 'traveler' || Number(numCheck) > travelersRepository.travelers.length) {
+    return false;
+  } else {
+    displayedTravelersId = Number(numCheck);
+    return displayedTravelersId;
   }
+}
 
-  function checkPassword(password) {
-    if (password === 'traveler') {
-      return true;
-    }
+function checkPassword(password) {
+  if (password === 'traveler') {
+    return true;
   }
+}
