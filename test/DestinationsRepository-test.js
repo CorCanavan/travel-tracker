@@ -39,4 +39,8 @@ let sampleDestination;
     expect(destinationsRepository.getDestinationById(3)).to.deep.equal(destinationsRepository.destinations[2]);
     expect(destinationsRepository.getDestinationById(3)).to.deep.equal(sampleDestination);
   });
+
+  it('should return undefined if unable to find destination by id', () => {
+    expect(destinationsRepository.getDestinationById(6)).to.equal(undefined);
+  })
 });
