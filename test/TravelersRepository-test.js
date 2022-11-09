@@ -40,4 +40,8 @@ let sampleTraveler;
     expect(travelersRepository.getTravelerById(2)).to.deep.equal(travelersRepository.travelers[1]);
     expect(travelersRepository.getTravelerById(2)).to.deep.equal(sampleTraveler);
   });
+
+  it('should return undefined if unable to find traveler by id', () => {
+    expect(travelersRepository.getTravelerById(6)).to.equal(undefined);
+  });
 });
