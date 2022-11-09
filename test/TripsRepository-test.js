@@ -1,4 +1,4 @@
-import chai from 'chai';
+ import chai from 'chai';
 const expect = chai.expect;
 import TripsRepository from '../src/TripsRepository.js';
 import tripsData from '../data/trips-sample-data.js';
@@ -90,4 +90,9 @@ let tripsRepository;
       }]);
     expect(tripsRepository.getTravelerTripsFromPastYear(43, "2022/06/11").length).to.equal(1);
   });
+
+  it('should return an empty array if unable to find trips for specific traveler given id and date', () => {
+    expect(tripsRepository.getAllTripsByUserID(2)).to.deep.equal([]);
+    expect(tripsRepository.getAllTripsByUserID(2).length).to.equal(0);
+  })
 });
