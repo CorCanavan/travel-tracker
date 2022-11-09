@@ -32,7 +32,7 @@ let sampleTraveler;
     expect(travelersRepository.travelers).to.deep.equal(travelersData);
   });
 
-  it("should take in correct amount of travelers data", () => {
+  it('should take in correct amount of travelers data', () => {
     expect(travelersRepository.travelers.length).to.equal(5);
   });
 

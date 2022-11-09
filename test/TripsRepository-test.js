@@ -1,4 +1,4 @@
- import chai from 'chai';
+import chai from 'chai';
 const expect = chai.expect;
 import TripsRepository from '../src/TripsRepository.js';
 import tripsData from '../data/trips-sample-data.js';
