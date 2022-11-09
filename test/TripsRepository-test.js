@@ -90,4 +90,24 @@ let tripsRepository;
       }]);
     expect(tripsRepository.getTravelerTripsFromPastYear(43, "2022/06/11").length).to.equal(1);
   });
+
+  it('should return an empty array if unable to find any trips (all, past, present, pending, future) for specific traveler given id and date', () => {
+    expect(tripsRepository.getAllTripsByUserID(2)).to.deep.equal([]);
+    expect(tripsRepository.getAllTripsByUserID(2).length).to.equal(0);
+
+    expect(tripsRepository.getAllPastTripsForTraveler(2, "2022/06/11")).to.deep.equal([]);
+    expect(tripsRepository.getAllPastTripsForTraveler(2, "2022/06/11").length).to.equal(0);
+
+    expect(tripsRepository.getAllPresentTripsForTraveler(2, "2022/06/11")).to.deep.equal([]);
+    expect(tripsRepository.getAllPresentTripsForTraveler(2, "2022/06/11").length).to.equal(0);
+
+    expect(tripsRepository.getAllFutureTripsForTraveler(2, "2022/06/11")).to.deep.equal([]);
+    expect(tripsRepository.getAllFutureTripsForTraveler(2, "2022/06/11").length).to.equal(0);
+
+    expect(tripsRepository.getAllPendingTripsForTraveler(2, "2022/06/11")).to.deep.equal([]);
+    expect(tripsRepository.getAllPendingTripsForTraveler(2, "2022/06/11").length).to.equal(0);
+
+    expect(tripsRepository.getTravelerTripsFromPastYear(2, "2022/06/11")).to.deep.equal([]);
+    expect(tripsRepository.getTravelerTripsFromPastYear(2, "2022/06/11").length).to.equal(0);
+  })
 });

@@ -32,12 +32,16 @@ let sampleTraveler;
     expect(travelersRepository.travelers).to.deep.equal(travelersData);
   });
 
-  it("should take in correct amount of travelers data", () => {
+  it('should take in correct amount of travelers data', () => {
     expect(travelersRepository.travelers.length).to.equal(5);
   });
 
   it('should return a traveler\'s specific data when given an id', () => {
     expect(travelersRepository.getTravelerById(2)).to.deep.equal(travelersRepository.travelers[1]);
     expect(travelersRepository.getTravelerById(2)).to.deep.equal(sampleTraveler);
+  });
+
+  it('should return undefined if unable to find traveler by id', () => {
+    expect(travelersRepository.getTravelerById(6)).to.equal(undefined);
   });
 });
