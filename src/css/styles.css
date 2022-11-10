@@ -256,3 +256,7 @@ body {
   width: 12%;
   border-radius: 5px;
 }
+
+.login-msg {
+  font-size: larger;
+}
